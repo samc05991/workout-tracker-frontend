@@ -26,13 +26,6 @@ export class LoginComponent implements OnInit {
     }
 
     submit() {
-        this._auth.loginUser( this.user ).subscribe(
-            () => {
-                console.log('logged in');
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        this._auth.loginUser(this.user);
     }
 }

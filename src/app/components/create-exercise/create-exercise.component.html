@@ -73,7 +73,18 @@
   </div>
   <div *ngIf="exercise.name">
       <h5>Your Exercise: {{exercise.name}}</h5>
-      <metrics [metrics]='exercise.metrics'></metrics>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics | keys">
+            <span>{{metric.key}} :</span>
+            <span *ngFor="let input of metric.value | keys">
+                <span *ngIf="input.key === 'number'">
+                    <span> {{input.value}} </span>
+                    <input *ngIf="input.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="input.value">
+                </span>
+            </span>
+        </li>
+    </ul>
   </div>
   <div class="modal-footer"><button type="button" class="btn btn-outline-dark" (click)="saveExercise(); c('Save click');">Save</button></div>
 </ng-template>

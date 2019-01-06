@@ -14,15 +14,12 @@ export class SignUpComponent implements OnInit {
     user: User;
     submitted = false;
 
-    constructor(private _fb: FormBuilder, private _auth: AuthService) {#
+    constructor(private _fb: FormBuilder, private _auth: AuthService) {
         this.user = new User();
     }
 
     submit() {
-        this._auth.addUser( this.user )
-        .subscribe(
-            result => console.log(result)
-        );
+        this._auth.addUser(this.user);
     }
 
     ngOnInit() {
