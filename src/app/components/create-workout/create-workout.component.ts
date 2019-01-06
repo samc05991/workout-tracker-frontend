@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { Exercise } from '../../models/exercise.model';
 import { Workout } from '../../models/workout.model';
@@ -30,7 +31,7 @@ export class CreateWorkoutComponent implements OnInit {
         private _authService: AuthService,
         private _dataService: DataProviderService
     ) {
-        this.user = this._authService.getCurrentUser();
+        // this.user = this._authService.getCurrentUser();
         this.workout = new Workout({});
         this.exercises = this._exerciseService.exercises;
     }

@@ -18,7 +18,8 @@ export class ExerciseService {
     constructor( private _http: HttpClient, private _envConfig: EnvironmentConfig, private _authService: AuthService ) {}
 
     get user(): User {
-        return this._authService.getCurrentUser();
+        return new User();
+        // return this._authService.getCurrentUser();
     }
 
     addExercise(exercise: Exercise) {

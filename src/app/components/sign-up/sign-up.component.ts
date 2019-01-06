@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
@@ -14,12 +13,12 @@ export class SignUpComponent implements OnInit {
     user: User;
     submitted = false;
 
-    constructor(private _fb: FormBuilder, private _auth: AuthService) {
+    constructor(private _auth: AuthService) {
         this.user = new User();
     }
 
     submit() {
-        this._auth.addUser(this.user);
+        this._auth.handleAddUser(this.user);
     }
 
     ngOnInit() {

@@ -34,7 +34,7 @@ export class CreateExerciseComponent implements OnInit {
         config.backdrop = 'static';
         config.keyboard = false;
 
-        this.user = this._authService.getCurrentUser();
+        // this.user = this._authService.getCurrentUser();
         this.exercise = new Exercise();
     }
 

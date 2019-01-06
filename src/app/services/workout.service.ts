@@ -44,27 +44,27 @@ export class WorkoutService {
         );
     }
 
-    handleGetWorkouts() {
-        const user = this._authService.getCurrentUser();
+    // handleGetWorkouts() {
+    //     const user = this._authService.getCurrentUser();
 
-        if (this.workouts.length > 0) {
-            return this.workouts;
-        }
+    //     if (this.workouts.length > 0) {
+    //         return this.workouts;
+    //     }
 
-        if (user) {
-            return this.http.get(this._envConfig.getBaseApiUrl() + '/workouts/' + user._id)
-                .subscribe((response: any) => {
-                    const workouts = response.json().obj;
+    //     if (user) {
+    //         return this.http.get(this._envConfig.getBaseApiUrl() + '/workouts/' + user._id)
+    //             .subscribe((response: any) => {
+    //                 const workouts = response.json().obj;
 
-                    for (const workout of workouts) {
-                        const workoutObject = new Workout(workout);
+    //                 for (const workout of workouts) {
+    //                     const workoutObject = new Workout(workout);
 
-                        this.updateWorkoutsList(workoutObject);
-                    }
+    //                     this.updateWorkoutsList(workoutObject);
+    //                 }
 
-                    return workouts;
-                }
-            );
-        }
-    }
+    //                 return workouts;
+    //             }
+    //         );
+    //     }
+    // }
 }

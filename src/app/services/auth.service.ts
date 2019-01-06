@@ -1,15 +1,17 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { catchError, retry } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { EnvironmentConfig } from './environment-config.service';
+import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
 @Injectable()
 
 export class AuthService {
-
+    private handleError: HandleError;
     public currentUser: User;
 
     isUserLoggedIn: Boolean;
@@ -26,80 +28,96 @@ export class AuthService {
         this.userLoggedInChange.next(!this.isUserLoggedIn);
     }
 
-    addUser( user ) {
-        const body = JSON.stringify(user);
-        const headers = new Headers({'Content-Type': 'application/json'});
-
-        return this._http.post( this._envConfig.getBaseApiUrl() + '/users/sign-up', body)
-            .subscribe((response: Response) => {
-                const result: any = response.json();
-                const newUser = new User();
-                this.currentUser = newUser;
+    handleAddUser(user: User) {
+        this.addUser(user).subscribe(
+            (data: User) => {
+                this.currentUser = data['user'];
 
                 this.toggleUserIsLoggedIn();
-
-                return newUser;
-            }
-        );
-    }
-
-    loginUser(user) {
-        const body = JSON.stringify(user);
-        // const headers = new Headers({'Content-type':'application/json'});
-
-        return this._http.post(this._envConfig.getBaseApiUrl() + '/users/login', body)
-            .subscribe((response: Response) => {
-                const result: any = response.json();
-                this.currentUser = result.user;
-
-                this.toggleUserIsLoggedIn();
-                document.cookie = 'token=' + result.token + ';';
 
                 this._router.navigate(['/dashboard']);
-            }
+            },
+            (error: any) => {}
         );
     }
 
-    refreshCurrentUser(token) {
-        return this._http.get(this._envConfig.getBaseApiUrl() + '/users/me/' + token)
-            .subscribe((response: Response) => {
-                const result: any = response.json();
-                this.currentUser = result.obj[0];
+    addUser(user: User) {
+        const params = new HttpParams().set('username', user.username).set('password', user.password);
+
+        return this._http.post<User>(this._envConfig.getBaseApiUrl() + '/users/sign-up', {user}).pipe(
+            catchError(this.handleError('addUser', user))
+        );
+    }
+
+    handleUserLogin (user: User) {
+        this.loginUser(user).subscribe(
+            (data: User) => {
+                const userObject = new User();
+                userObject.username = data['user'].username;
+
+                this.currentUser = userObject;
 
                 this.toggleUserIsLoggedIn();
 
-                return this.currentUser;
-            }
+                this._router.navigate(['/dashboard']);
+            },
+            (error: any) => {}
         );
     }
 
-    getCurrentUser() {
-        if (this.currentUser) {
-            return this.currentUser;
-        }
+    loginUser(user: User): Observable<User> {
+        const body = JSON.stringify(user);
 
-        if (this.getCookie('token')) {
-            // this.refreshCurrentUser(this.getCookie('token')).subscribe(
-            //     (response) => {
-            //         console.log(response);
-            //         this._router.navigate(['/dashboard']);
-            //     },
-            //     (error) => {
-            //         throw error;
-            //     }
-            // );
-        } else {
-            // return a message here too saying not auth
-            this._router.navigate(['/login']);
-        }
+        return this._http.post<User>(this._envConfig.getBaseApiUrl() + '/users/login', body).pipe(
+            catchError(this.handleError('loginUser', user))
+        );
     }
 
-    getCookie(name) {
-        const value = '; ' + document.cookie;
-        const parts = value.split('; ' + name + '=');
+    // refreshCurrentUser(token) {
+    //     return this._http.get(this._envConfig.getBaseApiUrl() + '/users/me/' + token)
+    //         .subscribe((response: Response) => {
+    //             const result: any = response.json();
+    //             this.currentUser = result.obj[0];
 
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
-        }
+    //             this.toggleUserIsLoggedIn();
+
+    //             return this.currentUser;
+    //         }
+    //     );
+    // }
+
+    // getCurrentUser() {
+    //     if (this.currentUser) {
+    //         return this.currentUser;
+    //     }
+
+    //     if (this.getCookie('token')) {
+    //         // this.refreshCurrentUser(this.getCookie('token')).subscribe(
+    //         //     (response) => {
+    //         //         console.log(response);
+    //         //         this._router.navigate(['/dashboard']);
+    //         //     },
+    //         //     (error) => {
+    //         //         throw error;
+    //         //     }
+    //         // );
+    //     } else {
+    //         // return a message here too saying not auth
+    //         this._router.navigate(['/login']);
+    //     }
+    // }
+
+    // getCookie(name) {
+    //     const value = '; ' + document.cookie;
+    //     const parts = value.split('; ' + name + '=');
+
+    //     if (parts.length === 2) {
+    //         return parts.pop().split(';').shift();
+    //     }
+    // }
+
+    private handleError(error: string) {
+        // console.log('Error!!');
+        return 'Error!!';
     }
 }

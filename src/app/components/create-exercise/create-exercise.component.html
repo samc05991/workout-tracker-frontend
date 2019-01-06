@@ -75,9 +75,9 @@
       <h5>Your Exercise: {{exercise.name}}</h5>
 
       <ul class="list-group list-group-flush">
-        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics | keys">
+        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics keyvalue">
             <span>{{metric.key}} :</span>
-            <span *ngFor="let input of metric.value | keys">
+            <span *ngFor="let input of metric.value keyvalue">
                 <span *ngIf="input.key === 'number'">
                     <span> {{input.value}} </span>
                     <input *ngIf="input.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="input.value">

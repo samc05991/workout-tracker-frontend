@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
 
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
     // Controls
     submitted = false;
 
-    constructor( private _fb: FormBuilder, private _auth: AuthService, private _router: Router ) {
+    constructor(private _auth: AuthService) {
         this.user = new User();
     }
 
@@ -26,6 +25,6 @@ export class LoginComponent implements OnInit {
     }
 
     submit() {
-        this._auth.loginUser(this.user);
+        this._auth.handleUserLogin(this.user);
     }
 }
