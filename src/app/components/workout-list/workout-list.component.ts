@@ -1,15 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from '../../services/auth.service';
+import { WorkoutService } from '../../services/workout.service';
+
+import { User } from '../../models/user.model';
+import { Workout } from '../../models/workout.model';
+
 @Component({
-  selector: 'app-workout-list',
-  templateUrl: './workout-list.component.html',
-  styleUrls: ['./workout-list.component.scss']
+    selector: 'app-workout-list',
+    templateUrl: './workout-list.component.html',
+    styleUrls: ['./workout-list.component.scss']
 })
+
 export class WorkoutListComponent implements OnInit {
 
-  constructor() { }
+    user: User;
+    workouts: Workout[] = [];
+    submitted = false;
 
-  ngOnInit() {
-  }
+    view: String;
 
+    constructor(private _workoutService: WorkoutService, private _authService: AuthService) {
+        this.user = this._authService.getCurrentUser();
+        this.view = 'workout-list';
+    }
+
+    ngOnInit() {
+        this._workoutService.handleGetWorkouts();
+    }
+
+    toggleView(view: String) {
+        this.view = view;
+    }
 }
