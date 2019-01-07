@@ -19,7 +19,7 @@ export class WorkoutService {
 
     updateWorkoutListSubscriber: Subject<Workout> = new Subject<Workout>();
 
-    constructor(private http: HttpClient, private _envConfig: EnvironmentConfig, private _authService: AuthService) {
+    constructor(private _http: HttpClient, private _envConfig: EnvironmentConfig, private _authService: AuthService) {
         this.updateWorkoutListSubscriber.subscribe(
             (workout: Workout) => {
                 this.workouts.push(workout);
@@ -31,40 +31,38 @@ export class WorkoutService {
         this.updateWorkoutListSubscriber.next(workout);
     }
 
-    addWorkout(workout: Workout) {
-        const body = JSON.stringify(workout);
+    handleAddWorkout(workout: Workout) {
+        this.addWorkout(workout).subscribe((response: any) => {
+            const newWorkout = new Workout(response.json().obj);
+            this.workouts.push(newWorkout);
 
-        return this.http.post( this._envConfig.getBaseApiUrl() + '/workouts/create-workout', body)
-            .subscribe((response: any) => {
-                const newWorkout = new Workout(response.json().obj);
-                this.workouts.push(workout);
-
-                return workout;
-            }
-        );
+            return newWorkout;
+        });
     }
 
-    // handleGetWorkouts() {
-    //     const user = this._authService.getCurrentUser();
+    handleGetWorkouts() {
+        if (this.workouts.length > 0) {
+            return this.workouts;
+        }
 
-    //     if (this.workouts.length > 0) {
-    //         return this.workouts;
-    //     }
+        this.getWorkouts().subscribe((response: any) => {
+            const workouts = response.json().obj;
 
-    //     if (user) {
-    //         return this.http.get(this._envConfig.getBaseApiUrl() + '/workouts/' + user._id)
-    //             .subscribe((response: any) => {
-    //                 const workouts = response.json().obj;
+            for (const workout of workouts) {
+                const workoutObject = new Workout(workout);
 
-    //                 for (const workout of workouts) {
-    //                     const workoutObject = new Workout(workout);
+                this.updateWorkoutsList(workoutObject);
+            }
 
-    //                     this.updateWorkoutsList(workoutObject);
-    //                 }
+            return workouts;
+        });
+    }
 
-    //                 return workouts;
-    //             }
-    //         );
-    //     }
-    // }
+    addWorkout(workout: Workout): Observable<Workout>  {
+        return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', {workout});
+    }
+
+    getWorkouts() {
+        return this._http.get<Workout[]>(this._envConfig.getBaseApiUrl() + '/workouts/' + this._authService.getCurrentUserId());
+    }
 }

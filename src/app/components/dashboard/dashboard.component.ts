@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     options = {};
 
     constructor( private _workoutService: WorkoutService, private _authService: AuthService, private _exerciseService: ExerciseService ) {
-        // this.user = this._authService.getCurrentUser();
+        this.user = this._authService.getCurrentUser();
     }
 
     ngOnInit() {

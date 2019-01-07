@@ -38,7 +38,7 @@ export class CreateWorkoutComponent implements OnInit {
 
     submit() {
         this.workout.exercises = this.workoutExercise;
-        this.workout.created_by = this.user._id;
+        this.workout.created_by = this._authService.getCurrentUserId();
 
         this._workoutService.addWorkout(this.workout);
     }
