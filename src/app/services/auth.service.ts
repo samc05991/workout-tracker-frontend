@@ -73,7 +73,9 @@ export class AuthService {
     getCurrentUserId() {
         const user = this.getCurrentUser();
 
-        return user._id;
+        if (user && user._id) {
+            return user._id;
+        }
     }
 
     getCurrentUser() {
@@ -84,7 +86,7 @@ export class AuthService {
         if (this.getCookie('token')) {
             this.refreshCurrentUser(this.getCookie('token')).subscribe(
                 (response: any) => {
-                    // NEED TO REMOVE PASSWORD
+                    // NEED TO REMOVE PASSWORD FROM API SEND
                     const user = new User();
 
                     user._id = response.obj[0]._id;
