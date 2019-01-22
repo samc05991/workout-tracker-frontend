@@ -5,6 +5,7 @@ import { WorkoutService } from '../../services/workout.service';
 
 import { User } from '../../models/user.model';
 import { Workout } from '../../models/workout.model';
+import { ExerciseService } from 'src/app/services/exercise.service';
 
 @Component({
     selector: 'app-workout-list',
@@ -20,12 +21,14 @@ export class WorkoutListComponent implements OnInit {
 
     view: String;
 
-    constructor(private _workoutService: WorkoutService, private _authService: AuthService) {
+    constructor(private _workoutService: WorkoutService, private _exerciseService: ExerciseService, private _authService: AuthService) {
         this.user = this._authService.getCurrentUser();
         this.view = 'workout-list';
     }
 
     ngOnInit() {
+        this._exerciseService.getExercises();
+
         this._workoutService.handleGetWorkouts();
     }
 
