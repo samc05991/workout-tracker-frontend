@@ -18,10 +18,8 @@
             <div class="col-6">
                 <app-date-picker></app-date-picker>
             </div>
-
-
             <div class="col-6 exercise-panel">
-                <app-create-exercise></app-create-exercise>
+                <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
 
                 <p>Recently used:</p>
 
@@ -39,31 +37,29 @@
             </div>
 
             <!-- List of exercises added to the workout -->
-            <div class="col-3" *ngFor="let exercise of workoutExercise; index as i">
+            <div class="col-3" *ngFor="let exercise of workout.exercises; index as i">
                 <div class="card">
                     <div class="card-header">
                         {{exercise.name}}
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics keyvalue">
-                            <span>{{metric.key}} :</span>
-                            <span *ngFor="let input of metric.value keyvalue">
-                                <span *ngIf="input.key === 'number'">
-                                    <span> {{input.value}} </span>
-                                    <input *ngIf="input.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="input.value"> 
-                                    <button *ngIf="!input.edit" class="btn btn-primary btn-sm" (click)="input.edit = true; toggleEdit">Edit</button>
-                                    <button *ngIf="input.edit" class="btn btn-primary btn-sm" (click)="updateMetric(input, metric, exercise)">Update</button>
-                                </span>
-                                <!-- <div *ngIf="input.key === 'weight'">
-                                    <input type="number" class="" id="weight" [(ngModel)]="editMetric.value" name="weight" value="input.value"> KG
-                                </div>
-                                <div *ngIf="input.key === 'distance'">
-                                    <input type="number" class="" id="distance" [(ngModel)]="editMetric.value" name="distance" value="input.value"> KM
-                                </div>
-                                <div *ngIf="input.key === 'time'">
-                                    <input type="number" class="" id="time" [(ngModel)]="editMetric.value" name="time" value="input.value"> mins
-                                </div> -->
+                        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics">
+                            <span>{{metric.name}} :</span>
+                            <span *ngIf="metric.type === 'number'">
+                                <span> {{metric.value}} </span>
+                                <input *ngIf="metric.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="metric.value"> 
+                                <button *ngIf="!metric.edit" class="btn btn-primary btn-sm" (click)="metric.edit = true; toggleEdit">Edit</button>
+                                <button *ngIf="metric.edit" class="btn btn-primary btn-sm" (click)="updateMetric(metric, exercise)">Update</button>
                             </span>
+                            <div *ngIf="metric.type === 'weight'">
+                                <input type="number" class="" id="weight" [(ngModel)]="editMetric.value" name="weight" value="metric.value"> KG
+                            </div>
+                            <div *ngIf="metric.type === 'distance'">
+                                <input type="number" class="" id="distance" [(ngModel)]="editMetric.value" name="distance" value="metric.value"> KM
+                            </div>
+                            <div *ngIf="metric.type === 'time'">
+                                <input type="number" class="" id="time" [(ngModel)]="editMetric.value" name="time" value="metric.value"> mins
+                            </div>
                         </li>
                     </ul>
                 </div>

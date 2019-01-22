@@ -43,48 +43,42 @@
                   <option value="time">Time Input</option>
               </select>
 
-              <p>What stat are you tracking? e.g. Reps, Sets, Weight, Distance, Time</p>
+              <p>What type of data is this metric tracking? </p>
           </div>
   
           <div *ngIf="metricType === 'number'" class="input-group mb-3">
               <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">Number</label>
               </div>
-              <input type="number" class="form-control" id="number" [(ngModel)]="newMetric.number" name="number" placeholder='0'> 
+              <input type="number" class="form-control" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
+              <p>Choose a default for this metric</p>
           </div>
   
           <div *ngIf="metricType === 'weight'" class="">
               <label class=""> KG </label>
-              <input type="number" class="" id="weight" [(ngModel)]="newMetric.weight" name="weight"> 
+              <input type="number" class="" id="weight" [(ngModel)]="metricValue" name="weight"> 
           </div>
   
           <div *ngIf="metricType === 'distance'" class="">
               <label class=""> Meters</label>
-              <input type="number" class="" id="distance" [(ngModel)]="newMetric.distance" name="distance"> 
+              <input type="number" class="" id="distance" [(ngModel)]="metricValue" name="distance"> 
           </div>
   
           <div *ngIf="metricType === 'time'" class="">
               <label class=""> Time</label>
-              <input type="number" class="" id="time" [(ngModel)]="newMetric.time" name="time"> 
+              <input type="number" class="" id="time" [(ngModel)]="metricValue" name="time"> 
           </div>
   
           <button type="button" class="btn btn-dark" (click)="addMetric()">Add Metric</button>
       </div>          
   </div>
   <div *ngIf="exercise.name">
-      <h5>Your Exercise: {{exercise.name}}</h5>
-
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item exercise-group-item" *ngFor="let metric of exercise.metrics keyvalue">
-            <span>{{metric.key}} :</span>
-            <span *ngFor="let input of metric.value keyvalue">
-                <span *ngIf="input.key === 'number'">
-                    <span> {{input.value}} </span>
-                    <input *ngIf="input.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="input.value">
-                </span>
-            </span>
-        </li>
-    </ul>
+        <h5>Your Exercise: {{exercise.name}}</h5>
+        <div *ngFor="let metric of exercise.metrics">
+            <p>{{metric.name}}</p>
+            <p>{{metric.type}}</p>
+            <p>{{metric.value}}</p>
+        </div>
   </div>
   <div class="modal-footer"><button type="button" class="btn btn-outline-dark" (click)="saveExercise(); c('Save click');">Save</button></div>
 </ng-template>

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
 import { Exercise } from '../../models/exercise.model';
 import { Workout } from '../../models/workout.model';
 import { User } from '../../models/user.model';
@@ -18,9 +16,7 @@ import { DataProviderService } from '../../services/data-provider.service';
 
 export class CreateWorkoutComponent implements OnInit {
 
-    user: User;
     exercises: Exercise[] = [];
-    workoutExercise: Exercise[] = [];
     workout: Workout;
     submitted = false;
     editMetric: any = {};
@@ -31,33 +27,39 @@ export class CreateWorkoutComponent implements OnInit {
         private _authService: AuthService,
         private _dataService: DataProviderService
     ) {
-        // this.user = this._authService.getCurrentUser();
         this.workout = new Workout({});
-        this.exercises = this._exerciseService.exercises;
+        this.workout.exercises = [];
     }
 
     submit() {
-        this.workout.exercises = this.workoutExercise;
         this.workout.created_by = this._authService.getCurrentUserId();
 
-        this._workoutService.addWorkout(this.workout);
+        this._workoutService.addWorkout(this.workout).subscribe((response) => {});
     }
 
     ngOnInit() {
-        this._dataService.currentWorkoutDate.subscribe(date => {
-            this.workout.date = date;
-        });
+        this.exercises = this._exerciseService.exercises;
+        this._dataService.currentWorkoutDate.subscribe(date => { this.workout.date = date; });
     }
 
-    addExerciseInput( exercise: Exercise) {
+    exerciseAddedFromModal($event) {
+        const newExercise = new Exercise();
+
+        newExercise.name = $event.name;
+        newExercise.metrics = $event.metrics;
+
+
+        this.workout.exercises.push(newExercise);
+        this.exercises.push(newExercise);
+    }
+
+    addExerciseInput(exercise: Exercise) {
         const newExercise = Object.assign({}, exercise);
 
-        this.workoutExercise.push(newExercise);
+        this.workout.exercises.push(newExercise);
     }
 
-    updateMetric(input, metric, exercise) {
-        input.edit = false;
-
-        exercise.metrics[metric.key][input.key] = this.editMetric.value;
+    updateMetric(metric, exercise) {
+        console.log(exercise, metric);
     }
 }
