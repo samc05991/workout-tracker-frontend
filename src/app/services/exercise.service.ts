@@ -22,7 +22,7 @@ export class ExerciseService {
     }
 
     handleAddExercise (exercise: Exercise) {
-        this.addExercise(exercise).subscribe(
+        return this.addExercise(exercise).subscribe(
             (response: any) => {
                 this.exercises.push(response.exercise);
 
@@ -47,23 +47,21 @@ export class ExerciseService {
             return this.exercises;
         }
 
-        this.setExercises().subscribe((result: Exercise[]) => {
-            console.log(result);
-            // const exercises = result;
-            // const transformedExercises: Exercise[] = [];
+        return this.setExercises().subscribe((result: any) => {
+            const exercises = result.obj;
+            const transformedExercises: Exercise[] = [];
 
-            // if (exercises.length > 0) {
-            //     for (const exercise of exercises) {
-            //         const exerciseObject = new Exercise(exercise);
+            if (exercises.length > 0) {
+                for (const exercise of exercises) {
+                    const exerciseObject = new Exercise(exercise);
 
-            //         transformedExercises.push(exerciseObject);
-            //     }
-            // }
+                    transformedExercises.push(exerciseObject);
+                }
+            }
 
-            // // return transformedExercises ? transformedExercises : [];
-            // // this.exercises = exercises;
+            this.exercises = transformedExercises;
 
-            // return this.exercises;
+            return this.exercises;
         });
     }
 
