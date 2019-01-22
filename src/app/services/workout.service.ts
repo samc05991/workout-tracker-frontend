@@ -45,8 +45,8 @@ export class WorkoutService {
             return this.workouts;
         }
 
-        this.getWorkouts().subscribe((response: any) => {
-            const workouts = response.json().obj;
+        return this.getWorkouts().subscribe((response: any) => {
+            const workouts = response.obj;
 
             for (const workout of workouts) {
                 const workoutObject = new Workout(workout);
