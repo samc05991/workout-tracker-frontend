@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 import { EnvironmentConfig } from './environment-config.service';
+import { DataProviderService } from './data-provider.service';
 
 @Injectable()
 
@@ -15,7 +16,12 @@ export class AuthService {
 
     userLoggedInChange: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private _http: HttpClient, private _envConfig: EnvironmentConfig, private _router: Router) {
+    constructor(
+        private _http: HttpClient,
+        private _envConfig: EnvironmentConfig,
+        private _router: Router,
+        private _dataProvider: DataProviderService
+    ) {
         this.userLoggedInChange.subscribe((value) => {
             this.isUserLoggedIn = value;
         });
@@ -83,8 +89,8 @@ export class AuthService {
             return this.currentUser;
         }
 
-        if (this.getCookie('token')) {
-            this.refreshCurrentUser(this.getCookie('token')).subscribe(
+        if (this._dataProvider.getCookie('token')) {
+            this.refreshCurrentUser(this._dataProvider.getCookie('token')).subscribe(
                 (response: any) => {
                     // NEED TO REMOVE PASSWORD FROM API SEND
                     const user = new User();
@@ -103,15 +109,6 @@ export class AuthService {
         } else {
             // return a message here too saying not auth
             this._router.navigate(['/login']);
-        }
-    }
-
-    getCookie(name) {
-        const value = '; ' + document.cookie;
-        const parts = value.split('; ' + name + '=');
-
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
         }
     }
 }

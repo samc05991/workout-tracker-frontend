@@ -5,8 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { Exercise } from '../models/exercise.model';
 import { User } from '../models/user.model';
 
-import { EnvironmentConfig } from './environment-config.service';
 import { AuthService } from './auth.service';
+import { DataProviderService } from './data-provider.service';
+import { EnvironmentConfig } from './environment-config.service';
 
 @Injectable()
 
@@ -15,7 +16,11 @@ export class ExerciseService {
     exercises: Exercise[] = [];
     exerciseIsEdit = new EventEmitter<Exercise>();
 
-    constructor( private _http: HttpClient, private _envConfig: EnvironmentConfig, private _authService: AuthService ) {}
+    constructor(private _http: HttpClient,
+        private _envConfig: EnvironmentConfig,
+        private _authService: AuthService,
+        private _dataProvider: DataProviderService
+    ) {}
 
     get user(): User {
         return this._authService.getCurrentUser();
