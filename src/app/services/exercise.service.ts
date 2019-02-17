@@ -40,11 +40,21 @@ export class ExerciseService {
     addExercise(exercise: Exercise) {
         exercise.created_by = this.user._id;
 
-        return this._http.post<Exercise>(this._envConfig.getBaseApiUrl() + '/exercises/create-exercise', {exercise});
+        const params = {
+            exercise: exercise,
+            token: this._dataProvider.getCookie('token')
+        };
+
+        return this._http.post<Exercise>(this._envConfig.getBaseApiUrl() + '/exercises/create-exercise', { params });
     }
 
     setExercises() {
-        return this._http.get<Exercise[]>(this._envConfig.getBaseApiUrl() + '/exercises/' + this.user._id);
+        const params = {
+            token: this._dataProvider.getCookie('token')
+        };
+
+
+        return this._http.get<Exercise[]>(this._envConfig.getBaseApiUrl() + '/exercises/' + this.user._id, { params });
     }
 
     getExercises() {

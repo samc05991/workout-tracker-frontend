@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Workout } from '../models/workout.model';
 import { EnvironmentConfig } from '../services/environment-config.service';
 import { AuthService } from '../services/auth.service';
+import { DataProviderService } from './data-provider.service';
 // import { User } from '../models/user.model';
 
 @Injectable()
@@ -19,7 +20,12 @@ export class WorkoutService {
 
     updateWorkoutListSubscriber: Subject<Workout> = new Subject<Workout>();
 
-    constructor(private _http: HttpClient, private _envConfig: EnvironmentConfig, private _authService: AuthService) {
+    constructor(
+        private _http: HttpClient,
+        private _envConfig: EnvironmentConfig,
+        private _authService: AuthService,
+        private _dataProvider: DataProviderService
+    ) {
         this.updateWorkoutListSubscriber.subscribe(
             (workout: Workout) => {
                 this.workouts.push(workout);
@@ -59,10 +65,19 @@ export class WorkoutService {
     }
 
     addWorkout(workout: Workout): Observable<Workout>  {
-        return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', {workout});
+        const params = {
+            workout: workout,
+            token: this._dataProvider.getCookie('token')
+        };
+
+        return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', { workout });
     }
 
     getWorkouts() {
-        return this._http.get<Workout[]>(this._envConfig.getBaseApiUrl() + '/workouts/' + this._authService.getCurrentUserId());
+        const params = {
+            token: this._dataProvider.getCookie('token')
+        };
+
+        return this._http.get<Workout[]>(this._envConfig.getBaseApiUrl() + '/workouts/' + this._authService.getCurrentUserId(), { params });
     }
 }

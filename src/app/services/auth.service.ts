@@ -108,7 +108,7 @@ export class AuthService {
             );
         } else {
             // return a message here too saying not auth
-            this._router.navigate(['/login']);
+            this._router.navigate(['/']);
         }
     }
 }
