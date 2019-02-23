@@ -66,18 +66,13 @@ export class WorkoutService {
 
     addWorkout(workout: Workout): Observable<Workout>  {
         const params = {
-            workout: workout,
-            token: this._dataProvider.getCookie('token')
+            workout: workout
         };
 
         return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', { workout });
     }
 
     getWorkouts() {
-        const params = {
-            token: this._dataProvider.getCookie('token')
-        };
-
-        return this._http.get<Workout[]>(this._envConfig.getBaseApiUrl() + '/workouts/' + this._authService.getCurrentUserId(), { params });
+        return this._http.get<Workout[]>(this._envConfig.getBaseApiUrl() + '/workouts/' + this._authService.getCurrentUserId(), {});
     }
 }

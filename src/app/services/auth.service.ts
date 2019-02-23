@@ -27,6 +27,20 @@ export class AuthService {
         });
     }
 
+    public getToken(): string {
+        return localStorage.getItem('token');
+    }
+
+    public isAuthenticated(): boolean {
+        const token = this.getToken();
+
+        if(token) {
+            return true;
+
+            // @TODO:: Check token expire time
+        }
+    }
+
     toggleUserIsLoggedIn() {
         this.userLoggedInChange.next(!this.isUserLoggedIn);
     }
@@ -36,9 +50,10 @@ export class AuthService {
             (data: any) => {
                 this.currentUser = data['user'];
 
-                this.toggleUserIsLoggedIn();
+                localStorage.setItem('user', JSON.stringify(this.currentUser));
+                localStorage.setItem('token', JSON.stringify(data.token));
 
-                document.cookie = 'token=' + data.token + ';';
+                this.toggleUserIsLoggedIn();
 
                 this._router.navigate(['/dashboard']);
             },
@@ -47,14 +62,17 @@ export class AuthService {
     }
 
     handleUserLogin (user: User) {
+        console.log(user);
         this.loginUser(user).subscribe(
             (data: any) => {
                 const userObject = new User();
                 userObject.username = data['user'].username;
                 userObject._id = data['user']._id;
+
                 this.currentUser = userObject;
 
-                document.cookie = 'token=' + data['token'] + ';';
+                localStorage.setItem('user', JSON.stringify(this.currentUser));
+                localStorage.setItem('token', JSON.stringify(data['token']));
 
                 this.toggleUserIsLoggedIn();
 
@@ -69,11 +87,12 @@ export class AuthService {
     }
 
     loginUser(user: User): Observable<User> {
+        console.log(user);
         return this._http.post<User>(this._envConfig.getBaseApiUrl() + '/users/login', {user});
     }
 
-    refreshCurrentUser(token: string): Observable<Object> {
-        return this._http.post(this._envConfig.getBaseApiUrl() + '/users/me', {token});
+    refreshCurrentUser(): Observable<Object> {
+        return this._http.post(this._envConfig.getBaseApiUrl() + '/users/me', {});
     }
 
     getCurrentUserId() {
@@ -89,8 +108,8 @@ export class AuthService {
             return this.currentUser;
         }
 
-        if (this._dataProvider.getCookie('token')) {
-            this.refreshCurrentUser(this._dataProvider.getCookie('token')).subscribe(
+        if (this.isAuthenticated()) {
+            this.refreshCurrentUser().subscribe(
                 (response: any) => {
                     // NEED TO REMOVE PASSWORD FROM API SEND
                     const user = new User();

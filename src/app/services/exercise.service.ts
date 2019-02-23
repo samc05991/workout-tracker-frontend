@@ -41,20 +41,14 @@ export class ExerciseService {
         exercise.created_by = this.user._id;
 
         const params = {
-            exercise: exercise,
-            token: this._dataProvider.getCookie('token')
+            exercise: exercise
         };
 
         return this._http.post<Exercise>(this._envConfig.getBaseApiUrl() + '/exercises/create-exercise', { params });
     }
 
     setExercises() {
-        const params = {
-            token: this._dataProvider.getCookie('token')
-        };
-
-
-        return this._http.get<Exercise[]>(this._envConfig.getBaseApiUrl() + '/exercises/' + this.user._id, { params });
+        return this._http.get<Exercise[]>(this._envConfig.getBaseApiUrl() + '/exercises/' + this.user._id, {});
     }
 
     getExercises() {
