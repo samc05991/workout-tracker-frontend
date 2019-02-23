@@ -62,7 +62,6 @@ export class AuthService {
     }
 
     handleUserLogin (user: User) {
-        console.log(user);
         this.loginUser(user).subscribe(
             (data: any) => {
                 const userObject = new User();
@@ -87,7 +86,6 @@ export class AuthService {
     }
 
     loginUser(user: User): Observable<User> {
-        console.log(user);
         return this._http.post<User>(this._envConfig.getBaseApiUrl() + '/users/login', {user});
     }
 
@@ -105,6 +103,12 @@ export class AuthService {
 
     getCurrentUser() {
         if (this.currentUser) {
+            return this.currentUser;
+        }
+
+        if (localStorage.getItem('user')) {
+            this.currentUser = JSON.parse(localStorage.getItem('user'));
+
             return this.currentUser;
         }
 
