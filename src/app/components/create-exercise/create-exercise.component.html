@@ -1,13 +1,12 @@
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Create Exercise!</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+<div class="">
+      <h4 class="">Create Exercise!</h4>
+      <button type="button" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
-  <div class="modal-body">
-      <div class="alert alert-create-exercise" role="alert">
-          <h4 class="alert-heading">Some tips!</h4>
+  <div class="">
+      <div class="" role="alert">
+          <h4 class="">Some tips!</h4>
           <hr>
           <ul>
               <li>Choose what type of data is it you wish to track. You can track numbers, weight, distance and time</li>
@@ -18,24 +17,24 @@
       </div>
       <div class="">    
           <h5>Exercise Name</h5>
-          <div class="mb-3">
+          <div class="">
               <input type="text" class="form-control" [(ngModel)]="exercise.name" name="name" required><br>
               <p>Add a name for your exercise</p>
           </div>
 
           <h5>Metric Name</h5>
-          <div class="mb-3">
+          <div class="">
               <input type="text" class="form-control" [(ngModel)]="metricName" name="name" required><br>
               <p>What stat are you tracking? e.g. Reps, Sets, Weight, Distance, Time</p>
           </div>
 
           <h5 class="">Data Options</h5>
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Options</label>
+          <div class="">
+              <div class="">
+                  <label class="" for="inputGroupSelect01">Options</label>
               </div>
   
-              <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="metricType">
+              <select class="" [(ngModel)]="metricType">
                   <option selected>Choose the type of input you need...</option>
                   <option value="number">Number Input</option>
                   <option value="weight">Weight Input</option>
@@ -46,9 +45,9 @@
               <p>What type of data is this metric tracking? </p>
           </div>
   
-          <div *ngIf="metricType === 'number'" class="input-group mb-3">
-              <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Number</label>
+          <div *ngIf="metricType === 'number'" class="">
+              <div class="">
+                  <label class="" for="inputGroupSelect01">Number</label>
               </div>
               <input type="number" class="form-control" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
               <p>Choose a default for this metric</p>
@@ -69,7 +68,7 @@
               <input type="number" class="" id="time" [(ngModel)]="metricValue" name="time"> 
           </div>
   
-          <button type="button" class="btn btn-dark" (click)="addMetric()">Add Metric</button>
+          <button type="button" class="" (click)="addMetric()">Add Metric</button>
       </div>          
   </div>
   <div *ngIf="exercise.name">
@@ -80,7 +79,6 @@
             <p>{{metric.value}}</p>
         </div>
   </div>
-  <div class="modal-footer"><button type="button" class="btn btn-outline-dark" (click)="saveExercise(); c('Save click');">Save</button></div>
-</ng-template>
+  <div class=""><button type="button" class="" (click)="saveExercise()">Save</button></div>
 
-<button class="btn btn-lg btn-outline-primary btn-block btn-create-exercise" (click)="open(content)">Create new exercise</button>
+<button class="">Create new exercise</button>
