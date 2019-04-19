@@ -1,16 +1,9 @@
 <nav class="">
     <a class="" href="#"> Workout Tracker </a>
-    <button class="" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class=""></span>
-    </button>
-    <div class="" id="navbarText">
-        <ul *ngIf="!isUserLoggedIn" class="navbar-nav mr-auto">
-            <li class="" routerLinkActive="active"><a class="nav-link" [routerLink]="['/login']">Login</a></li>
-            <li class="" routerLinkActive="active"><a class="nav-link" [routerLink]="['/sign-up']">Sign Up</a></li>
-        </ul>
-        <ul *ngIf="isUserLoggedIn" class="navbar-nav mr-auto">
-            <li class="" routerLinkActive="active"><a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a></li>
-            <li class="" routerLinkActive="active"><a class="nav-link" [routerLink]="['/workouts']">Workout</a></li>
-        </ul>
+    <div class="">
+        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/login']">Login!</button>
+        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/sign-up']">Sign Up!</button>
+        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/dashboard']">Workout!</button>
+        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/workouts']">Dashboard!</button>
     </div>
 </nav>
