@@ -18,13 +18,13 @@
       <div class="">    
           <h5>Exercise Name</h5>
           <div class="">
-              <input type="text" class="form-control" [(ngModel)]="exercise.name" name="name" required><br>
+              sc-input type="text" class="sc-input" [(ngModel)]="exercise.name" name="name" required><br>
               <p>Add a name for your exercise</p>
           </div>
 
           <h5>Metric Name</h5>
           <div class="">
-              <input type="text" class="form-control" [(ngModel)]="metricName" name="name" required><br>
+              <input type="text" class="sc-input" [(ngModel)]="metricName" name="name" required><br>
               <p>What stat are you tracking? e.g. Reps, Sets, Weight, Distance, Time</p>
           </div>
 
@@ -49,23 +49,23 @@
               <div class="">
                   <label class="" for="inputGroupSelect01">Number</label>
               </div>
-              <input type="number" class="form-control" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
+              <input type="number" class="sc-input" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
               <p>Choose a default for this metric</p>
           </div>
   
           <div *ngIf="metricType === 'weight'" class="">
               <label class=""> KG </label>
-              <input type="number" class="" id="weight" [(ngModel)]="metricValue" name="weight"> 
+              <input type="number" class="sc-input" id="weight" [(ngModel)]="metricValue" name="weight"> 
           </div>
   
           <div *ngIf="metricType === 'distance'" class="">
               <label class=""> Meters</label>
-              <input type="number" class="" id="distance" [(ngModel)]="metricValue" name="distance"> 
+              <input type="number" class="sc-input" id="distance" [(ngModel)]="metricValue" name="distance"> 
           </div>
   
           <div *ngIf="metricType === 'time'" class="">
               <label class=""> Time</label>
-              <input type="number" class="" id="time" [(ngModel)]="metricValue" name="time"> 
+              <input type="number" class="sc-input" id="time" [(ngModel)]="metricValue" name="time"> 
           </div>
   
           <button type="button" class="" (click)="addMetric()">Add Metric</button>

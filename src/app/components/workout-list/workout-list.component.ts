@@ -6,7 +6,7 @@ import { WorkoutService } from '../../services/workout.service';
 import { User } from '../../models/user.model';
 import { Workout } from '../../models/workout.model';
 import { ExerciseService } from 'src/app/services/exercise.service';
-
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-workout-list',
     templateUrl: './workout-list.component.html',
@@ -14,14 +14,19 @@ import { ExerciseService } from 'src/app/services/exercise.service';
 })
 
 export class WorkoutListComponent implements OnInit {
-
+    
     user: User;
     workouts: Workout[] = [];
     submitted = false;
-
+    
     view: String;
-
-    constructor(private _workoutService: WorkoutService, private _exerciseService: ExerciseService, private _authService: AuthService) {
+    
+    constructor(
+        private _workoutService: WorkoutService, 
+        private _exerciseService: ExerciseService, 
+        private _authService: AuthService,
+        private _router: Router,
+    ) {
         this.user = this._authService.getCurrentUser();
         this.view = 'workout-list';
     }
@@ -34,5 +39,9 @@ export class WorkoutListComponent implements OnInit {
 
     toggleView(view: String) {
         this.view = view;
+    }
+
+    goBack() {
+        this._router.navigate(['/dashboard']);
     }
 }

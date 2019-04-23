@@ -1,17 +1,20 @@
-<div class="">
-    <div class="">
-        <div class="">
-            <span class="">Username</span>
+<div class="sc-container">
+    <div class="menu-item">
+        <div class="sc-card">
+            <div class="sc-card-container">
+                <div class="sc-card-header sc-align--left"><h3>Login</h3><hr /></div>
+                <div class="sc-card-content">
+                    <div class="sc-card-item">
+                        <input type="text" class="sc-input" placeholder="Username" aria-label="username" [(ngModel)]="user.username" id="username" name="username" required>
+                    </div>
+                    <div class="sc-card-item">
+                        <input type="password" class="sc-input" placeholder="Password" id="password" aria-label="password" [(ngModel)]="user.password" name="password" required>
+                    </div>
+                    <div class="sc-card-item">
+                        <button type="submit" class="sc-btn sc-btn-block sc-btn--secondary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <input type="text" class="form-control" placeholder="Username" aria-label="username" [(ngModel)]="user.username" id="username" name="username" required>
-    </div>
-    <div class="">
-        <div class="">
-            <span class="">Password</span>
-        </div>
-        <input type="password" class="form-control" id="password" aria-label="password" [(ngModel)]="user.password" name="password" required>
-    </div>
-    <div class="">
-        <button type="submit" class="sc-btn sc-btn--secondary" (click)="submit()">Submit</button>
     </div>
 </div>

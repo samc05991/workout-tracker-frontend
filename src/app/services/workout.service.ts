@@ -65,10 +65,6 @@ export class WorkoutService {
     }
 
     addWorkout(workout: Workout): Observable<Workout>  {
-        const params = {
-            workout: workout
-        };
-
         return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', { workout });
     }
 

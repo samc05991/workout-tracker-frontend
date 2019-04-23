@@ -1,9 +1,8 @@
 .sc-container {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(3, auto);
+  text-align: center;
+  margin: 0 auto;
 }
 
 .sc-col {
@@ -17,13 +16,12 @@
   height: 100%;
   display: grid;
   grid-template-columns: 200px auto;
-  grid-template-rows: 60px auto 60px;
-  grid-template-areas: "sidebar header" "sidebar content" "sidebar footer";
+  grid-template-rows: 60px auto 67px;
+  grid-template-areas: "sidebar header" "sidebar content" "footer footer";
 }
 
 .sc-header {
   grid-area: header;
-  padding: 15px;
 }
 
 .sc-content {
@@ -72,12 +70,30 @@
   justify-items: right;
 }
 
+/* When the width is less than 400px then hide*/
+@media screen and (max-width: 400px) {
+  .sc-hide--xs {
+    display: none;
+  }
+}
+/* When the width is between 400px and 900px then hide*/
+@media screen and (min-width: 400px) and (max-width: 900px) {
+  .sc-hide--sm {
+    display: none;
+  }
+}
+/* When the width is more than 900px then hide*/
+@media screen and (min-width: 900px) {
+  .sc-hide--md {
+    display: none;
+  }
+}
 .sc-btn {
   min-width: 120px;
   min-height: 40px;
   border-radius: 3px;
   border: 0px;
-  opacity: 0.9;
+  opacity: 1;
   font-size: 16px;
   -webkit-box-shadow: 3px 3px 6px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 3px 6px -1px rgba(0, 0, 0, 0.75);
@@ -89,7 +105,7 @@
   color: #FAFCFC;
 }
 .sc-btn--light {
-  background-color: #FAFCFC;
+  background-color: #F7F7F5;
   border-color: #0097E3;
   color: #0097E3;
 }
@@ -115,13 +131,68 @@
   width: 100%;
 }
 
+.sc-btn-group .sc-btn {
+  margin-right: 15px;
+}
+
 .sc-btn:hover {
   cursor: pointer;
+}
+
+.sc-btn-hover-effect {
+  opacity: 0.9;
+}
+
+.sc-btn-hover-effect:hover {
   opacity: 1;
   transition: 1s;
   -webkit-transform: scale(1.01);
   -ms-transform: scale(1.01);
   transform: scale(1.01);
+}
+
+.sc-input {
+  width: 300px;
+  height: 35px;
+  border: 0px;
+  border-radius: 3px;
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0px 0px 5px 0px #858585;
+}
+
+.sc-input--date-day, .sc-input--date-month {
+  width: 41px;
+}
+
+.sc-input--date-year {
+  width: 62px;
+}
+
+.sc-input--block {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.sc-input-group {
+  display: inline;
+}
+
+.sc-input-group--date-time {
+  width: 600px;
+}
+
+.sc-input-label {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.sc-help-block {
+  font-size: 15px;
+  color: darkslategray;
 }
 
 .sc-label {
@@ -176,6 +247,9 @@
 
 .sc-card {
   background-color: #FAFCFC;
+  -webkit-box-shadow: 5px 5px 12px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 5px 5px 12px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: 5px 5px 12px -8px rgba(0, 0, 0, 0.75);
 }
 .sc-card .sc-card-container {
   padding: 10px;
@@ -190,6 +264,10 @@
 .sc-card .sc-card-container .sc-card-header h3 {
   margin-top: 0px;
 }
+.sc-card .sc-card-container .sc-card-header hr {
+  background-color: #0097E3;
+  height: 3px;
+}
 .sc-card .sc-card-container .sc-card-content {
   grid-area: content;
   padding: 10px;
@@ -197,6 +275,9 @@
 .sc-card .sc-card-container .sc-card-footer {
   grid-area: footer;
   padding: 10px;
+}
+.sc-card .sc-card-container .sc-card-item {
+  margin-bottom: 15px;
 }
 
 .sc-btn-tooltip:focus {
@@ -326,6 +407,53 @@
   transform-origin: center;
   width: 40px;
   will-change: transform;
+}
+
+.sc-nav {
+  width: 100%;
+  height: 67px;
+  color: #FAFCFC;
+  background-color: #004263;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 67px;
+  grid-template-areas: "nav-title nav-links";
+}
+.sc-nav .sc-nav-title {
+  grid-area: nav-title;
+  height: 100%;
+  padding: 0px 0px 0px 20px;
+}
+.sc-nav .sc-nav-links {
+  grid-area: nav-links;
+  text-align: right;
+  height: 100%;
+}
+.sc-nav .sc-btn-group {
+  height: 100%;
+}
+.sc-nav .sc-btn-group .sc-btn {
+  height: 100%;
+  opacity: 1;
+  background-color: #004263;
+  color: #FAFCFC;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0px;
+  font-size: 18px;
+}
+.sc-nav .sc-btn-group .sc-btn:hover {
+  cursor: pointer;
+  opacity: 1;
+  transition: none;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+.sc-nav .sc-btn-group .sc-btn--active {
+  background-color: #F7F7F5;
+  color: #004263;
 }
 
 body, html {

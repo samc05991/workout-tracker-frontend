@@ -11,7 +11,7 @@
             <div class="">
                 <span class="">Workout Name</span>
             </div>
-            <input type="text" class="form-control" id="name" [(ngModel)]="workout.name" name="name" required>
+            <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
         </div>
 
         <div class="">
@@ -24,7 +24,7 @@
                     <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
                 </div>
                 
-                <button type="submit" class="" (click)="submit()">Submit</button>
+                <button type="submit" class="sc-input" (click)="submit()">Submit</button>
             </div>
         </div>
 
@@ -44,18 +44,18 @@
                             <span>{{metric.name}} :</span>
                             <span *ngIf="metric.type === 'number'">
                                 <span> {{metric.value}} </span>
-                                <input *ngIf="metric.edit" type="number" class="" id="number" [(ngModel)]="editMetric.value" name="number" value="metric.value"> 
+                                <input *ngIf="metric.edit" type="number" class="sc-input" id="number" [(ngModel)]="editMetric.value" name="number" value="metric.value"> 
                                 <button *ngIf="!metric.edit" class="  " (click)="metric.edit = true; toggleEdit">Edit</button>
                                 <button *ngIf="metric.edit" class="  " (click)="updateMetric(metric, exercise)">Update</button>
                             </span>
                             <div *ngIf="metric.type === 'weight'">
-                                <input type="number" class="" id="weight" [(ngModel)]="editMetric.value" name="weight" value="metric.value"> KG
+                                <input type="number" class="sc-input" id="weight" [(ngModel)]="editMetric.value" name="weight" value="metric.value"> KG
                             </div>
                             <div *ngIf="metric.type === 'distance'">
-                                <input type="number" class="" id="distance" [(ngModel)]="editMetric.value" name="distance" value="metric.value"> KM
+                                <input type="number" class="sc-input" id="distance" [(ngModel)]="editMetric.value" name="distance" value="metric.value"> KM
                             </div>
                             <div *ngIf="metric.type === 'time'">
-                                <input type="number" class="" id="time" [(ngModel)]="editMetric.value" name="time" value="metric.value"> mins
+                                <input type="number" class="sc-input" id="time" [(ngModel)]="editMetric.value" name="time" value="metric.value"> mins
                             </div>
                         </li>
                     </ul>

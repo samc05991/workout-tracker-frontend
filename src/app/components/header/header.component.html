@@ -1,9 +1,13 @@
-<nav class="">
-    <a class="" href="#"> Workout Tracker </a>
-    <div class="">
-        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/login']">Login!</button>
-        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/sign-up']">Sign Up!</button>
-        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/dashboard']">Workout!</button>
-        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn sc-btn--primary" [routerLink]="['/workouts']">Dashboard!</button>
+<div class="sc-header">
+    <div class="sc-nav">
+        <div class="sc-nav-title"><h3>Workout Tracker</h3></div>
+        <div class="sc-nav-links">
+            <div class="sc-btn-group">
+                <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/login']">Login</button>
+                <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/sign-up']">Sign Up</button>
+                <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/dashboard']">Workout</button>
+                <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/workouts']">Dashboard</button>
+            </div>
+        </div>
     </div>
-</nav>
+</div>
