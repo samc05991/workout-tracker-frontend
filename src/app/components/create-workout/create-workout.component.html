@@ -1,12 +1,5 @@
-<div class="">
+<div class="sc-align--left">
     <div class="">
-        <div class="">
-            <h4 class="">Well done!</h4>
-            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-            <hr>
-            <p class="">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-        </div>
-
         <div class="">
             <div class="">
                 <span class="">Workout Name</span>
@@ -15,17 +8,15 @@
         </div>
 
         <div class="">
+            <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
+
+            <p>Recently used:</p>
+
             <div class="">
-                <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
-
-                <p>Recently used:</p>
-
-                <div class="">
-                    <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
-                </div>
-                
-                <button type="submit" class="sc-input" (click)="submit()">Submit</button>
+                <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
             </div>
+            
+            <button type="submit" class="sc-input" (click)="submit()">Submit</button>
         </div>
 
         <div class="">

@@ -1,7 +1,7 @@
 <div class="sc-header">
     <div class="sc-nav">
         <div class="sc-nav-title"><h3>Workout Tracker</h3></div>
-        <div class="sc-nav-links">
+        <div class="sc-nav-links sc-hide--xs sc-hide--sm">
             <div class="sc-btn-group">
                 <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/login']">Login</button>
                 <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/sign-up']">Sign Up</button>

@@ -1,54 +1,52 @@
 <div class="sc-container">
-    <div class="menu-item">
-        <div class="sc-card">
+
+    <div class="workout-list">
+        <div class="sc-sub-nav">
+            <div class="sc-nav-links">
+                <div class="sc-btn-group">
+                    <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-list')" [ngClass]="{'sc-btn--active': view === 'workout-list' }">Workout List</button>
+                    <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-builder')" [ngClass]="{'sc-btn--active': view === 'workout-builder' }">Workout Builder</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="sc-card" [ngClass]="{'show active': view === 'workout-list' }">
+            <div class="sc-card-container" *ngIf="view === 'workout-list'">
+                <div class="sc-card-content">
+                    <div class="sc-card-item" *ngFor="let workout of workouts">
+                        <div class="">
+                            <h5 class="">{{workout.name}}</h5>
+                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                        </div>
+                        <ul class="">
+                            <li *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</li>
+                        </ul>
+                        <div class="">
+                            <button class="">
+                                <a href="#" class="">Use Again</a>
+                            </button> 
+                            <button class="">
+                                <a href="#" class="">Copy</a>
+                            </button> 
+                            <button class="">
+                                <a href="#" class="">Stats</a>
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+                <div class="" *ngIf="workouts.length === 0">                         
+                    <div class="" role="alert">
+                        Looks like you've yet to make a workout! Use the workout builder to get started!
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="sc-card" *ngIf="view === 'workout-builder'">
             <div class="sc-card-container">
                 <div class="sc-card-content">
-                    <div class="sc-button-group">
-                        <button class="sc-btn sc-btn--primary" (click)="goBack()">Go Back</button>
-                        <button class="sc-btn sc-btn--primary" (click)="toggleView('workout-list')" [ngClass]="{'active': view === 'workout-list' }">Workout List</button>
-                        <button class="sc-btn sc-btn--primary" (click)="toggleView('workout-builder')" [ngClass]="{'active': view === 'workout-builder' }">Workout Builder</button>
-                    </div>
+                    <app-create-workout></app-create-workout>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="sc-card" [ngClass]="{'show active': view === 'workout-list' }">
-        <div class="sc-card-container" *ngIf="view === 'workout-list'">
-            <div class="sc-card-content">
-                <div class="sc-card-item" *ngFor="let workout of workouts">
-                    <div class="">
-                        <h5 class="">{{workout.name}}</h5>
-                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    </div>
-                    <ul class="">
-                        <li *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</li>
-                    </ul>
-                    <div class="">
-                        <button class="">
-                            <a href="#" class="">Use Again</a>
-                        </button> 
-                        <button class="">
-                            <a href="#" class="">Copy</a>
-                        </button> 
-                        <button class="">
-                            <a href="#" class="">Stats</a>
-                        </button> 
-                    </div>
-                </div>
-            </div>
-            <div class="" *ngIf="workouts.length === 0">                         
-                <div class="" role="alert">
-                    Looks like you've yet to make a workout! Use the workout builder to get started!
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="sc-card" *ngIf="view === 'workout-builder'">
-        <div class="sc-card-container">
-            <div class="sc-card-content">
-                <app-create-workout></app-create-workout>
             </div>
         </div>
     </div>

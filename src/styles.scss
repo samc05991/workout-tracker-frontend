@@ -1,6 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 .menu-item {
     display: inline-block;
-    min-width: 100%;
+    width: 50%;
+    margin-top: 50px;
     box-sizing: border-box;
+}
+
+/* When the width is less than 400px*/
+@media screen and (max-width: 400px) {
+    .menu-item {
+        width: 80%;
+    }
+}
+
+/* When the width is between 400px and 900px*/
+@media screen and (min-width: 400px) and (max-width: 900px) {
+    .menu-item {
+        width: 60%;
+    }
+}
+
+/* When the width is more than 900px*/
+@media screen and (min-width: 900px) {
+    .menu-item {
+        width: 400px;
+    }
 }

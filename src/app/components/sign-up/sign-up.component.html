@@ -5,10 +5,10 @@
                 <div class="sc-card-header sc-align--left"><h3>Sign Up</h3><hr /></div>
                 <div class="sc-card-content">
                     <div class="sc-card-item">
-                        <input type="text" class="sc-input" aria-label="username" placeholder="Username" id="username" [(ngModel)]="user.username" name="username" required>
+                        <input type="text" class="sc-input sc-input--block" aria-label="username" placeholder="Username" id="username" [(ngModel)]="user.username" name="username" required>
                     </div>
                     <div class="sc-card-item">
-                        <input type="password" class="sc-input" id="password" placeholder="Password" aria-label="password" [(ngModel)]="user.password" name="password" required>
+                        <input type="password" class="sc-input sc-input--block" id="password" placeholder="Password" aria-label="password" [(ngModel)]="user.password" name="password" required>
                     </div>
                     <div class="sc-card-item">
                         <button type="submit" class="sc-btn sc-btn-block sc-btn--secondary" (click)="submit()">Submit</button>
