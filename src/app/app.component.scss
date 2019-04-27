@@ -1,0 +1,23 @@
+.sc-app-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 70px auto 70px;
+    grid-template-areas: 
+        "header"
+        "content"
+        "footer";
+}
+
+.sc-header {
+    grid-area: header;
+}
+
+.sc-content {
+    grid-area: content;
+}
+
+.sc-footer {
+    grid-area: footer;
+}
