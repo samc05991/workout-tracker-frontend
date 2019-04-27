@@ -18,11 +18,17 @@ import { User } from './models/user.model';
 
 export class AppComponent implements OnInit {
     title = 'workout-tracker-frontend';
-
+    public isUserLoggedIn: Boolean;
 
     constructor(private _authService: AuthService) {}
 
     ngOnInit() {
         const currentUser: User = this._authService.getCurrentUser();
+
+        this.isUserLoggedIn = false;
+
+        this._authService.userLoggedInChange.subscribe(value => {
+            this.isUserLoggedIn = value;
+        });
     }
 }
