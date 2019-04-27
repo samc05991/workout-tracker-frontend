@@ -1,3 +1,23 @@
-<app-header></app-header>
+<div class="sc-app-container">
+    <div class="sc-header">
+        <app-header></app-header>
+    </div>
+    <div class="sc-content">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="sc-footer sc-footer--sticky sc-hide--md">
+        <div class="sc-header">
+            <div class="sc-nav">
+                <div class="sc-nav-links">
+                    <div class="sc-btn-group">
+                        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/login']">Login</button>
+                        <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/sign-up']">Sign Up</button>
+                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/dashboard']">Workout</button>
+                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" [routerLink]="['/workouts']">Dashboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<router-outlet></router-outlet>
