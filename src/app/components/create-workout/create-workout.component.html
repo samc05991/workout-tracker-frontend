@@ -1,30 +1,70 @@
-<div class="sc-align--left">
-    <div class="">
-        <div class="">
-            <div class="">
-                <span class="">Workout Name</span>
-            </div>
+<div class="create-workout-container">
+    <div class="workouts">
+        <div class="sc-input-group">
+            <div class="sc-input-label sc-align--right">Workout Name</div>
             <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
+            <!-- <p class="sc-help-block">Give your workout a name</p> -->
         </div>
 
-        <div class="">
-            <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
+        <br>
 
+        <div class="sc-input-group sc-input-group--date-time">
+            <div class="sc-input-group">
+                <div class="sc-input-label sc-align--right">Date</div>
+                <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" placeholder="DD">
+                <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" placeholder="MM">
+                <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" placeholder="YYYY">
+                <!-- <p class="sc-help-block"><em>(Optional)</em> When are you going working out? </p> -->
+            </div>
+        </div>
+
+        <br>
+
+        <div class="sc-input-group">
+            <div class="sc-input-label sc-align--right">Description</div>
+            <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
+            <!-- <p class="sc-help-block">Describe your workout</p> -->
+        </div>
+    </div>
+
+    <div class="exercises">
+        <button type="button" class="sc-btn sc-btn-block sc-btn--light" (click)="savedExerciseModal = true">Saved Exercises</button>
+        <button type="button" class="sc-btn sc-btn-block sc-btn--light margin-top-15" (click)="createExerciseModal = true">Create Exercise</button>
+    </div>
+
+    <div class="editor">
+        <div class="sc-row">Item 1</div>
+        <div class="sc-row">Item 1</div>
+        <div class="sc-row">Item 1</div>
+        <div class="sc-row">Item 1</div>
+        <div class="sc-row">Item 1</div>
+    </div>
+
+    <div class="footer">
+        <button type="submit" class="sc-btn sc-btn--primary" (click)="submit()">Submit</button>
+    </div>
+
+    <div class="modal" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
+
+    </div>
+
+    <div class="modal" *ngIf="createExerciseModal" (click)="createExerciseModal = false">
+        <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
+    </div>
+
+</div>
+<!-- 
             <p>Recently used:</p>
 
             <div class="">
                 <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
             </div>
-            
-            <button type="submit" class="sc-input" (click)="submit()">Submit</button>
-        </div>
+             -->
 
-        <div class="">
+        <!-- <div class="">
             <div class="">
                 <h5>Exercises in this Workout:</h5>
             </div>
-
-            <!-- List of exercises added to the workout -->
             <div class="" *ngFor="let exercise of workout.exercises; index as i">
                 <div class="">
                     <div class="">
@@ -52,6 +92,4 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </div> -->

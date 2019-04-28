@@ -32,6 +32,12 @@
   grid-area: footer;
 }
 
+.sc-footer--sticky {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+}
+
 .sc-sidebar {
   grid-area: sidebar;
   background-color: #004263;
@@ -165,7 +171,8 @@
 }
 
 .sc-input--date-day, .sc-input--date-month {
-  width: 41px;
+  width: 46px;
+  margin-right: 10px;
 }
 
 .sc-input--date-year {
@@ -499,7 +506,7 @@
 .sc-sub-nav .sc-btn-group .sc-btn--active {
   opacity: 1;
   height: 100%;
-  background-color: #F7F7F5;
+  background-color: #FAFCFC;
   color: #004263;
 }
 

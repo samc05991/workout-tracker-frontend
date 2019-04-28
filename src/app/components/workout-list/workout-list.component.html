@@ -42,12 +42,7 @@
             </div>
         </div>
     
-        <div class="sc-card" *ngIf="view === 'workout-builder'">
-            <div class="sc-card-container">
-                <div class="sc-card-content">
-                    <app-create-workout></app-create-workout>
-                </div>
-            </div>
-        </div>
+
+        <app-create-workout *ngIf="view === 'workout-builder'"></app-create-workout>
     </div>
 </div>

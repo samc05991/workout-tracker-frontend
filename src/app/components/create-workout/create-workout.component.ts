@@ -20,6 +20,9 @@ export class CreateWorkoutComponent implements OnInit {
     workout: Workout;
     submitted = false;
     editMetric: any = {};
+    createExerciseModal: boolean = false;
+    savedExerciseModal: boolean = false;
+
 
     constructor(
         private _workoutService: WorkoutService,
