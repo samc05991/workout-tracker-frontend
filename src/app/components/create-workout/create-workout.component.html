@@ -3,7 +3,7 @@
         <div class="sc-input-group">
             <div class="sc-input-label sc-align--right">Workout Name</div>
             <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
-            <!-- <p class="sc-help-block">Give your workout a name</p> -->
+            <!-- <p>Give your workout a name</p> -->
         </div>
 
         <br>
@@ -14,7 +14,7 @@
                 <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" placeholder="DD">
                 <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" placeholder="MM">
                 <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" placeholder="YYYY">
-                <!-- <p class="sc-help-block"><em>(Optional)</em> When are you going working out? </p> -->
+                <!-- <p><em>(Optional)</em> When are you going working out? </p> -->
             </div>
         </div>
 
@@ -23,21 +23,61 @@
         <div class="sc-input-group">
             <div class="sc-input-label sc-align--right">Description</div>
             <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
-            <!-- <p class="sc-help-block">Describe your workout</p> -->
+            <!-- <p>Describe your workout</p> -->
         </div>
     </div>
 
     <div class="exercises">
-        <button type="button" class="sc-btn sc-btn-block sc-btn--light" (click)="savedExerciseModal = true">Saved Exercises</button>
-        <button type="button" class="sc-btn sc-btn-block sc-btn--light margin-top-15" (click)="createExerciseModal = true">Create Exercise</button>
+        <button type="button" class="sc-btn sc-btn-block sc-btn--light" (click)="savedExerciseModal = true">Exercise Templates</button>
+        <button type="button" class="sc-btn sc-btn-block sc-btn--light margin-top-15" (click)="createExerciseModal = true">Add New Exercise Template</button>
     </div>
 
     <div class="editor">
-        <div class="sc-row">Item 1</div>
-        <div class="sc-row">Item 1</div>
-        <div class="sc-row">Item 1</div>
-        <div class="sc-row">Item 1</div>
-        <div class="sc-row">Item 1</div>
+        <div class="sc-row">
+            <div class="exercise-item">
+                <div class="details">
+                    <h4 class="exercise-title">Exercise Title</h4>
+                    <p>Hold: 20s</p>
+                </div>
+                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
+            </div>
+        </div>
+        <div class="sc-row">
+            <div class="exercise-item">
+                <div class="details">
+                    <h4 class="exercise-title">Exercise Title</h4>
+                    <p>Hold: 20s</p>
+                </div>
+                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
+            </div>
+        </div>
+        <div class="sc-row">
+            <div class="exercise-item">
+                <div class="details">
+                    <h4 class="exercise-title">Exercise Title</h4>
+                    <p>Hold: 20s</p>
+                </div>
+                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
+            </div>
+        </div>
+        <div class="sc-row">
+            <div class="exercise-item">
+                <div class="details">
+                    <h4 class="exercise-title">Exercise Title</h4>
+                    <p>Hold: 20s</p>
+                </div>
+                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
+            </div>
+        </div>
+        <div class="sc-row">
+            <div class="exercise-item">
+                <div class="details">
+                    <h4 class="exercise-title">Exercise Title</h4>
+                    <p>Hold: 20s</p>
+                </div>
+                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
+            </div>
+        </div>
     </div>
 
     <div class="footer">
@@ -45,20 +85,22 @@
     </div>
 
     <div class="modal" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
-
-    </div>
-
-    <div class="modal" *ngIf="createExerciseModal" (click)="createExerciseModal = false">
-        <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)"></app-create-exercise>
-    </div>
-
-</div>
-<!-- 
+        <div class="modal-container">
             <p>Recently used:</p>
 
             <div class="">
                 <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" *ngIf="createExerciseModal" (click)="createExerciseModal = false">
+        <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)" (click)="$event.stopPropagation()"></app-create-exercise>
+    </div>
+
+</div>
+<!-- 
+
              -->
 
         <!-- <div class="">

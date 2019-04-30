@@ -3,7 +3,6 @@
     height: 100%;
     display: grid;
     text-align: left;
-    background-color: #FAFCFC;
     grid-template-columns: 65% 35%;
     grid-template-rows: auto auto auto;
     grid-template-areas:
@@ -14,8 +13,11 @@
     box-sizing: border-box;
 
     .workouts, .exercises, .footer, .editor {
-        background-color: #004263;
-        color: white;
+        background-color: #f5f5f5;
+        color: #33363D;
+        -webkit-box-shadow: 0px 0px 25px -15px rgba(51,54,61,1);
+        -moz-box-shadow: 0px 0px 25px -10px rgba(51,54,61,1);
+        box-shadow: 0px 0px 25px -10px rgba(51,54,61,1);
         padding: 10px;
         margin: 10px;
     }
@@ -30,6 +32,10 @@
 
     .editor {
         grid-area: editor;
+
+        .sc-row {
+            grid-template-columns: 100%
+        }
     }
 
     .footer {
@@ -42,12 +48,44 @@
     width: 150px;
 }
 
+.exercise-item {
+    background-color: #33363D;
+    color: #F2F2F2;
+    display: grid;
+    text-align: left;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "details options";
+
+    h4 {
+        margin-top: 0px;
+    }
+
+    .details {
+        grid-area: details;
+    }
+
+    .options {
+        grid-area: options;
+    }
+
+    .details, .options {
+        padding: 15px;
+    }
+
+    .selected-exercise {
+        border-left: 3px solid #F79728;
+    }
+}
+
 /* When the width is less than 400px*/
 @media screen and (max-width: 400px) {
     .create-workout-container {
         grid-template-areas:
             "workout" 
             "exercises"
+            "editor"
             "footer";
     }   
 }
@@ -59,6 +97,7 @@
         grid-template-areas:
             "workout" 
             "exercises"
+            "editor"
             "footer";
     }    
 }

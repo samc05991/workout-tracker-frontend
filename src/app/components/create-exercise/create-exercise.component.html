@@ -1,86 +1,83 @@
 <div class="modal-container">
-    <h4 class="">Create Exercise!</h4>
-    <button type="button" aria-label="Close">
-        <span aria-hidden="true">&times;</span> <!-- TODO::ADD ICON HERE-->
-    </button>
-
-    <div class="sc-input-group">
-        <h5>Exercise Name</h5>
-        <input type="text" class="sc-input" [(ngModel)]="exercise.name" name="name" required><br>
-        <p class="sc-help-block">Add a name for your exercise</p>
-    </div>
+    <div class="create-exercise-container">
+        <h4 class="">Create Exercise!</h4>
+        <button type="button" aria-label="Close">
+            <span aria-hidden="true">&times;</span> <!-- TODO::ADD ICON HERE-->
+        </button>
     
-    <div class="sc-input-group">
-        <h5>Metric Name</h5>
-        <input type="text" class="sc-input" [(ngModel)]="metricName" name="name" required><br>
-        <p class="sc-help-block">What stat are you tracking? e.g. Reps, Sets, Weight, Distance, Time</p>
-    </div>
-</div>
+        <div class="sc-input-group">
+            <h5>Exercise Name</h5>
+            <input type="text" class="sc-input" [(ngModel)]="exercise.name" name="name" required><br>
+            <p class="sc-help-block">Add a name for your exercise</p>
+        </div>
+        
+        <div class="sc-input-group">
+            <h5>Metric Name</h5>
+            <input type="text" class="sc-input" [(ngModel)]="metricName" name="name" required><br>
+            <p class="sc-help-block">What stat are you tracking? e.g. Reps, Sets, Weight, Distance, Time</p>
+        </div>
 
-      <!-- <div class="" role="alert">
-          <h4 class="">Some tips!</h4>
-          <hr>
-          <ul>
-              <li>Choose what type of data is it you wish to track. You can track numbers, weight, distance and time</li>
-              <li>Give each metric a default value to get started, this can be edited when adding to a workout</li>
-              <li>Exercises will be saved for reuse in later workouts</li>
-              <li>As you use exercises over and over you can view statistics for each one!</li>
-          </ul>
-      </div> -->
+        <div class="sc-input-group">
+            <h5 class="">Data Options</h5>
+            <select class="sc-input" [(ngModel)]="metricType">
+                <option selected>Choose the type of input you need...</option>
+                <option value="number">Number Input</option>
+                <option value="weight">Weight Input</option>
+                <option value="distance">Distance Input</option>
+                <option value="time">Time Input</option>
+            </select>
+        </div>
 
-          
+        <div *ngIf="metricType === 'number'" class="sc-input-group">
+            <h5>Number</h5>
+            <input type="number" class="sc-input" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
+        </div>
 
-          <!-- <h5 class="">Data Options</h5>
-          <div class="">
-              <div class="">
-                  <label class="" for="inputGroupSelect01">Options</label>
-              </div>
-  
-              <select class="" [(ngModel)]="metricType">
-                  <option selected>Choose the type of input you need...</option>
-                  <option value="number">Number Input</option>
-                  <option value="weight">Weight Input</option>
-                  <option value="distance">Distance Input</option>
-                  <option value="time">Time Input</option>
-              </select>
+        <div *ngIf="metricType === 'weight'" class="sc-input-group">
+            <h5>Weight</h5>
+            <input type="number" class="sc-input" id="weight" [(ngModel)]="metricValue" name="weight">KG
+        </div>
 
-              <p>What type of data is this metric tracking? </p>
-          </div> -->
-  
-          <!-- <div *ngIf="metricType === 'number'" class="">
-              <div class="">
-                  <label class="" for="inputGroupSelect01">Number</label>
-              </div>
-              <input type="number" class="sc-input" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
-              <p>Choose a default for this metric</p>
-          </div>
-  
-          <div *ngIf="metricType === 'weight'" class="">
-              <label class=""> KG </label>
-              <input type="number" class="sc-input" id="weight" [(ngModel)]="metricValue" name="weight"> 
-          </div>
-  
-          <div *ngIf="metricType === 'distance'" class="">
-              <label class=""> Meters</label>
-              <input type="number" class="sc-input" id="distance" [(ngModel)]="metricValue" name="distance"> 
-          </div>
-  
-          <div *ngIf="metricType === 'time'" class="">
-              <label class=""> Time</label>
-              <input type="number" class="sc-input" id="time" [(ngModel)]="metricValue" name="time"> 
-          </div> -->
-  
-          <!-- <button type="button" class="" (click)="addMetric()">Add Metric</button>
-      </div>          
-  </div>
-  <div *ngIf="exercise.name">
+        <div *ngIf="metricType === 'distance'" class="sc-input-group">
+            <h5>Distance</h5>
+            <input type="number" class="sc-input" id="distance" [(ngModel)]="metricValue" name="distance">Meters
+        </div>
+
+        <div *ngIf="metricType === 'time'" class="sc-input-group sc-input-group--date-time">
+            <div class="sc-input-group">
+                <div class="sc-input-label sc-align--right">Time</div>
+                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.hours" placeholder="HH">
+                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.minutes" placeholder="MM">
+                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.seconds" placeholder="SS">
+                <!-- <p><em>(Optional)</em> When are you going working out? </p> -->
+            </div>
+        </div>
+
+        <button type="button" class="" (click)="addMetric()">Add Metric</button>
+    </div>          
+
+    <div *ngIf="exercise.name">
         <h5>Your Exercise: {{exercise.name}}</h5>
         <div *ngFor="let metric of exercise.metrics">
             <p>{{metric.name}}</p>
             <p>{{metric.type}}</p>
             <p>{{metric.value}}</p>
         </div>
-  </div>
-  <div class=""><button type="button" class="" (click)="saveExercise()">Save</button></div>
+    </div>
+    <div class="">
+        <button type="button" class="" (click)="saveExercise()">Save</button>
+    </div>
+</div>
 
-<button class="">Create new exercise</button> -->
+<!-- <div class="" role="alert">
+    <h4 class="">Some tips!</h4>
+    <hr>
+    <ul>
+        <li>Choose what type of data is it you wish to track. You can track numbers, weight, distance and time</li>
+        <li>Give each metric a default value to get started, this can be edited when adding to a workout</li>
+        <li>Exercises will be saved for reuse in later workouts</li>
+        <li>As you use exercises over and over you can view statistics for each one!</li>
+    </ul>
+</div> -->
+
+          

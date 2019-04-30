@@ -108,6 +108,7 @@ export class AuthService {
 
         if (localStorage.getItem('user')) {
             this.currentUser = JSON.parse(localStorage.getItem('user'));
+            this.toggleUserIsLoggedIn();
 
             return this.currentUser;
         }

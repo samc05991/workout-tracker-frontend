@@ -25,7 +25,7 @@ export class CreateExerciseComponent implements OnInit {
 
     metricName = '';
     metricType = 'none';
-    metricValue: any;
+    metricValue: any = {};
     metrics: any = [];
     newMetric: any = {};
 
