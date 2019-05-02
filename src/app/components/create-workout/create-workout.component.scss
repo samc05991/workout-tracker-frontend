@@ -1,6 +1,5 @@
 .create-workout-container {
     width: 100%;
-    height: 100%;
     display: grid;
     text-align: left;
     grid-template-columns: 65% 35%;
@@ -49,7 +48,7 @@
 }
 
 .exercise-item {
-    background-color: #33363D;
+    background-color: #4A4F59;
     color: #F2F2F2;
     display: grid;
     text-align: left;

@@ -1,6 +1,5 @@
 <div class="sc-container">
 
-    <div class="workout-list">
         <div class="sc-sub-nav">
             <div class="sc-nav-links">
                 <div class="sc-btn-group">
@@ -10,39 +9,48 @@
             </div>
         </div>
     
-        <div class="sc-card" [ngClass]="{'show active': view === 'workout-list' }">
-            <div class="sc-card-container" *ngIf="view === 'workout-list'">
-                <div class="sc-card-content">
-                    <div class="sc-card-item" *ngFor="let workout of workouts">
-                        <div class="">
-                            <h5 class="">{{workout.name}}</h5>
-                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        </div>
-                        <ul class="">
-                            <li *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</li>
-                        </ul>
-                        <div class="">
-                            <button class="">
-                                <a href="#" class="">Use Again</a>
-                            </button> 
-                            <button class="">
-                                <a href="#" class="">Copy</a>
-                            </button> 
-                            <button class="">
-                                <a href="#" class="">Stats</a>
-                            </button> 
-                        </div>
-                    </div>
+        <div class="workout-list-container" [ngClass]="{'show active': view === 'workout-list' }" *ngIf="view === 'workout-list'">
+            <div class="workout-list-item" *ngFor="let workout of workouts">
+                <div class="details">
+                    <h5 class="">{{workout.name}}</h5>
+                    <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
                 </div>
-                <div class="" *ngIf="workouts.length === 0">                         
-                    <div class="" role="alert">
-                        Looks like you've yet to make a workout! Use the workout builder to get started!
-                    </div>
+                <div class="options">
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
+                </div>
+            </div>
+            <div class="workout-list-item" *ngFor="let workout of workouts">
+                <div class="details">
+                    <h5 class="">{{workout.name}}</h5>
+                    <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
+                </div>
+                <div class="options">
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
+                </div>
+            </div>
+            <div class="workout-list-item" *ngFor="let workout of workouts">
+                <div class="details">
+                    <h5 class="">{{workout.name}}</h5>
+                    <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
+                </div>
+                <div class="options">
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
+                    <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
+                </div>
+            </div>
+            <div class="workout-list" *ngIf="workouts.length === 0">                         
+                <div class="" role="alert">
+                    Looks like you've yet to make a workout! Use the workout builder to get started!
                 </div>
             </div>
         </div>
     
 
         <app-create-workout *ngIf="view === 'workout-builder'"></app-create-workout>
-    </div>
+    <!-- </div> -->
 </div>

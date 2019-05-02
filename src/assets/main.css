@@ -7,7 +7,7 @@
 }
 
 .sc-col {
-  width: 100%;
+  width: 10%;
   background: darkblue;
   border-radius: 5px;
 }
@@ -118,6 +118,11 @@
 }
 .sc-btn--secondary {
   background-color: #2C858D;
+  border-color: #F2F2F2;
+  color: #F2F2F2;
+}
+.sc-btn--danger {
+  background-color: #CF5345;
   border-color: #F2F2F2;
   color: #F2F2F2;
 }

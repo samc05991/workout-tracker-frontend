@@ -1,0 +1,41 @@
+.workout-list-container {
+    width: 100%;
+    display: grid;
+    text-align: left;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "workouts workouts workouts";
+    padding: 20px;
+    box-sizing: border-box;
+
+    .workouts {
+        grid-area: workout;
+        background-color: #f5f5f5;
+        color: #33363D;
+        -webkit-box-shadow: 0px 0px 25px -15px rgba(51,54,61,1);
+        -moz-box-shadow: 0px 0px 25px -10px rgba(51,54,61,1);
+        box-shadow: 0px 0px 25px -10px rgba(51,54,61,1);
+        padding: 10px;
+        margin: 10px;
+
+    }
+
+    .workout-list-item {
+        margin: 10px;
+        background-color: #4A4F59;
+        color: #f5f5f5;
+        padding: 20px;
+        box-shadow: 0px 0px 25px -10px #33363d;
+
+        .details {
+            h5 {
+                margin: 0;
+            }
+        }
+
+        .sc-btn {
+            margin-right: 10px;
+        }
+    }
+}

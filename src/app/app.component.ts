@@ -20,15 +20,15 @@ export class AppComponent implements OnInit {
     title = 'workout-tracker-frontend';
     public isUserLoggedIn: Boolean;
 
-    constructor(private _authService: AuthService) {}
-
-    ngOnInit() {
-        const currentUser: User = this._authService.getCurrentUser();
-
+    constructor(private _authService: AuthService) {
         this.isUserLoggedIn = false;
 
         this._authService.userLoggedInChange.subscribe(value => {
             this.isUserLoggedIn = value;
         });
+    }
+
+    ngOnInit() {
+        const currentUser: User = this._authService.getCurrentUser();
     }
 }

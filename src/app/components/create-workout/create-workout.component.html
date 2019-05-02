@@ -28,54 +28,24 @@
     </div>
 
     <div class="exercises">
-        <button type="button" class="sc-btn sc-btn-block sc-btn--light" (click)="savedExerciseModal = true">Exercise Templates</button>
-        <button type="button" class="sc-btn sc-btn-block sc-btn--light margin-top-15" (click)="createExerciseModal = true">Add New Exercise Template</button>
+        <button type="button" class="sc-btn sc-btn-block sc-btn--secondary" (click)="savedExerciseModal = true">Exercise Templates</button>
+        <button type="button" class="sc-btn sc-btn-block sc-btn--secondary margin-top-15" (click)="createExerciseModal = true">Add New Exercise Template</button>
     </div>
 
     <div class="editor">
-        <div class="sc-row">
-            <div class="exercise-item">
-                <div class="details">
-                    <h4 class="exercise-title">Exercise Title</h4>
-                    <p>Hold: 20s</p>
-                </div>
-                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
-            </div>
+        <div class="editor-nav">
+            <button type="button" class="sc-btn sc-btn--light"></button>
         </div>
-        <div class="sc-row">
+        <div class="sc-row" *ngFor="let exercise of workout.exercises">
             <div class="exercise-item">
                 <div class="details">
-                    <h4 class="exercise-title">Exercise Title</h4>
+                    <h4 class="exercise-title">{{ exercise.name }}</h4>
                     <p>Hold: 20s</p>
                 </div>
-                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
-            </div>
-        </div>
-        <div class="sc-row">
-            <div class="exercise-item">
-                <div class="details">
-                    <h4 class="exercise-title">Exercise Title</h4>
-                    <p>Hold: 20s</p>
+                <div class="options">
+                    <button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button>
+                    <button type="button" class="sc-btn sc-btn-block sc-btn--danger sc-btn-sm margin-top-15">Remove</button>
                 </div>
-                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
-            </div>
-        </div>
-        <div class="sc-row">
-            <div class="exercise-item">
-                <div class="details">
-                    <h4 class="exercise-title">Exercise Title</h4>
-                    <p>Hold: 20s</p>
-                </div>
-                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
-            </div>
-        </div>
-        <div class="sc-row">
-            <div class="exercise-item">
-                <div class="details">
-                    <h4 class="exercise-title">Exercise Title</h4>
-                    <p>Hold: 20s</p>
-                </div>
-                <div class="options"><button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button></div>
             </div>
         </div>
     </div>
@@ -86,10 +56,17 @@
 
     <div class="modal" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
         <div class="modal-container">
-            <p>Recently used:</p>
-
-            <div class="">
-                <a class="" *ngFor="let exercise of exercises"  (click)="addExerciseInput(exercise)">{{ exercise.name }}</a>
+            <div class="sc-row">
+                <p>The are templates of exercises that you have previously used. You can re-use, edit and track statistics for each exercise!</p>
+                <p>Click an exercise to add to your workout</p>
+            </div>
+            <div class="sc-row">
+                <div class="exercise-item" *ngFor="let exercise of exercises">
+                    <div class="details">
+                        <h4 class="exercise-title">{{exercise.name}}</h4>
+                        <p>Hold: 20s</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
