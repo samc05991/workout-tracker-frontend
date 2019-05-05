@@ -1,42 +1,50 @@
 <div class="create-workout-container">
     <div class="workouts">
-        <div class="sc-input-group">
-            <div class="sc-input-label sc-align--right">Workout Name</div>
-            <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
-            <!-- <p>Give your workout a name</p> -->
+        <div class="sub-nav-header">
+            <h3>Workout Details</h3>
         </div>
 
-        <br>
-
-        <div class="sc-input-group sc-input-group--date-time">
+        <div class="padding-20">
             <div class="sc-input-group">
-                <div class="sc-input-label sc-align--right">Date</div>
-                <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" placeholder="DD">
-                <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" placeholder="MM">
-                <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" placeholder="YYYY">
-                <!-- <p><em>(Optional)</em> When are you going working out? </p> -->
+                <div class="sc-input-label sc-align--right">Workout Name</div>
+                <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
             </div>
-        </div>
-
-        <br>
-
-        <div class="sc-input-group">
-            <div class="sc-input-label sc-align--right">Description</div>
-            <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
-            <!-- <p>Describe your workout</p> -->
+    
+            <br>
+    
+            <div class="sc-input-group sc-input-group--date-time">
+                <div class="sc-input-group">
+                    <div class="sc-input-label sc-align--right">Date</div>
+                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" placeholder="DD">
+                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" placeholder="MM">
+                    <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" placeholder="YYYY">
+                </div>
+            </div>
+    
+            <br>
+    
+            <div class="sc-input-group">
+                <div class="sc-input-label sc-align--right">Description</div>
+                <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
+            </div>
         </div>
     </div>
 
     <div class="exercises">
-        <button type="button" class="sc-btn sc-btn-block sc-btn--secondary" (click)="savedExerciseModal = true">Exercise Templates</button>
-        <button type="button" class="sc-btn sc-btn-block sc-btn--secondary margin-top-15" (click)="createExerciseModal = true">Add New Exercise Template</button>
+        <div class="sub-nav-header">
+            <h3>Exercise Options</h3>
+        </div>
+        <div class="padding-20">
+            <button type="button" class="sc-btn sc-btn-block sc-btn--secondary" (click)="savedExerciseModal = true">Exercise Templates</button>
+            <button type="button" class="sc-btn sc-btn-block sc-btn--secondary margin-top-15" (click)="createExerciseModal = true">Add New Exercise Template</button>
+        </div>
     </div>
 
     <div class="editor">
-        <div class="editor-nav">
-            <button type="button" class="sc-btn sc-btn--light"></button>
+        <div class="sub-nav-header">
+            <h3>Manage Your Workout</h3>
         </div>
-        <div class="sc-row" *ngFor="let exercise of workout.exercises">
+        <div class="sc-row padding-20" *ngFor="let exercise of workout.exercises">
             <div class="exercise-item">
                 <div class="details">
                     <h4 class="exercise-title">{{ exercise.name }}</h4>
@@ -50,7 +58,7 @@
         </div>
     </div>
 
-    <div class="footer">
+    <div class="footer padding-20">
         <button type="submit" class="sc-btn sc-btn--primary" (click)="submit()">Submit</button>
     </div>
 
@@ -61,7 +69,7 @@
                 <p>Click an exercise to add to your workout</p>
             </div>
             <div class="sc-row">
-                <div class="exercise-item" *ngFor="let exercise of exercises">
+                <div class="exercise-item" *ngFor="let exercise of exercises" (click)="exerciseAddedFromList(exercise)">
                     <div class="details">
                         <h4 class="exercise-title">{{exercise.name}}</h4>
                         <p>Hold: 20s</p>

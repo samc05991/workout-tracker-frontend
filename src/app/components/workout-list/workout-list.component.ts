@@ -28,7 +28,7 @@ export class WorkoutListComponent implements OnInit {
         private _router: Router,
     ) {
         this.user = this._authService.getCurrentUser();
-        this.view = 'workout-list';
+        this.view = 'workout-builder';
     }
 
     ngOnInit() {

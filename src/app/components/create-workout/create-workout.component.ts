@@ -23,7 +23,6 @@ export class CreateWorkoutComponent implements OnInit {
     createExerciseModal: boolean = false;
     savedExerciseModal: boolean = false;
 
-
     constructor(
         private _workoutService: WorkoutService,
         private _exerciseService: ExerciseService,
@@ -32,6 +31,10 @@ export class CreateWorkoutComponent implements OnInit {
     ) {
         this.workout = new Workout({});
         this.workout.exercises = [];
+
+        this._exerciseService.exerciseSubject.subscribe(value => {
+            this.exercises = this._exerciseService.exercises;
+        });
     }
 
     submit() {
@@ -41,8 +44,16 @@ export class CreateWorkoutComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.exercises = this._exerciseService.exercises;
-        this._dataService.currentWorkoutDate.subscribe(date => { this.workout.date = date; });
+    }
+
+    exerciseAddedFromList(exercise: Exercise) {
+        const newExercise = new Exercise();
+
+        newExercise.name = exercise.name;
+        newExercise.metrics = exercise.metrics;
+
+        this.workout.exercises.push(newExercise);
+        this.exercises.push(newExercise);
     }
 
     exerciseAddedFromModal($event) {
@@ -50,7 +61,6 @@ export class CreateWorkoutComponent implements OnInit {
 
         newExercise.name = $event.name;
         newExercise.metrics = $event.metrics;
-
 
         this.workout.exercises.push(newExercise);
         this.exercises.push(newExercise);

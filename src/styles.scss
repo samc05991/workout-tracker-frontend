@@ -8,7 +8,6 @@ $warning-color: #D69A39;
 $danger-color: #CF5345;
 $success-color: #34C77B;
 
-
 $white: #F2F2F2;
 $off-white: #FAFCFC;
 $dark: #33363D;
@@ -16,7 +15,6 @@ $grey: #626973;
 $grey-dark: #4A4F59;
 $grey-light: #979DA6;
 $grey-background: #CCD3D9;
-
 
 body {
     font-family: 'Baloo', cursive;
@@ -65,6 +63,10 @@ button:focus {outline:0;}
     }
 }
 
+.padding-20 {
+    padding: 20px;
+}
+
 .margin-top-20 {
     margin-top: 20px;
 }
@@ -89,8 +91,12 @@ button:focus {outline:0;}
 
 .modal-container {
     display: inline-block;
-    background-color: white;
+    background-color: #33363d;
+    color: #f5f5f5;
     text-align: left;
-    padding: 10px;
     border-radius: 6px;
+
+    .modal-header {
+        padding: 10px;
+    }
 }

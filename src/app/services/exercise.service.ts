@@ -14,35 +14,37 @@ import { EnvironmentConfig } from './environment-config.service';
 export class ExerciseService {
 
     exercises: Exercise[] = [];
+    exerciseSubject: Subject<Exercise> = new Subject<Exercise>();
     exerciseIsEdit = new EventEmitter<Exercise>();
 
     constructor(private _http: HttpClient,
         private _envConfig: EnvironmentConfig,
         private _authService: AuthService,
         private _dataProvider: DataProviderService
-    ) {}
+    ) {
+        this.exerciseSubject.subscribe((value: Exercise) => {
+            this.exercises.push(value);
+        });
+    }
 
     get user(): User {
         return this._authService.getCurrentUser();
     }
 
+    updateExerciseList(exercise: Exercise) {
+        this.exerciseSubject.next(exercise);
+    }
+
     handleAddExercise (exercise: Exercise) {
         return this.addExercise(exercise).subscribe(
-            (response: any) => {
-                this.exercises.push(response.exercise);
-
-                return exercise;
-            },
+            (response: any) => this.updateExerciseList(exercise),
             (error: any) => {}
         );
     }
 
     addExercise(exercise: Exercise) {
-        exercise.created_by = this.user._id;
-
-        const params = {
-            exercise: exercise
-        };
+        const params = { exercise: exercise };
+        params.exercise.created_by = this.user._id;
 
         return this._http.post<Exercise>(this._envConfig.getBaseApiUrl() + '/exercises/create-exercise', { params });
     }
@@ -52,7 +54,7 @@ export class ExerciseService {
     }
 
     getExercises() {
-        if (this.exercises.length >  0) {
+        if (this.exercises.length > 0) {
             return this.exercises;
         }
 
@@ -64,13 +66,9 @@ export class ExerciseService {
                 for (const exercise of exercises) {
                     const exerciseObject = new Exercise(exercise);
 
-                    transformedExercises.push(exerciseObject);
+                    this.updateExerciseList(exerciseObject);
                 }
             }
-
-            this.exercises = transformedExercises;
-
-            return this.exercises;
         });
     }
 
