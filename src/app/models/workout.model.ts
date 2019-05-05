@@ -15,9 +15,9 @@ export class Workout {
             this.exercises = workout.exercises;
             this.created_by = workout.created_by;
 
-            if (workout.date) {
-                this.date = workout.date;
-            }
+        }
+        if (workout.date) {
+            this.date = workout.date;
         }
     }
 }

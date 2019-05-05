@@ -29,7 +29,7 @@ export class CreateWorkoutComponent implements OnInit {
         private _authService: AuthService,
         private _dataService: DataProviderService
     ) {
-        this.workout = new Workout({});
+        this.workout = new Workout({date:{}});
         this.workout.exercises = [];
 
         this._exerciseService.exerciseSubject.subscribe(value => {

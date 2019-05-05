@@ -15,9 +15,9 @@
             <div class="sc-input-group sc-input-group--date-time">
                 <div class="sc-input-group">
                     <div class="sc-input-label sc-align--right">Date</div>
-                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" placeholder="DD">
-                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" placeholder="MM">
-                    <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" placeholder="YYYY">
+                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="workout.date.day" placeholder="DD">
+                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" [(ngModel)]="workout.date.month" placeholder="MM">
+                    <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" [(ngModel)]="workout.date.year" placeholder="YYYY">
                 </div>
             </div>
     
@@ -25,7 +25,7 @@
     
             <div class="sc-input-group">
                 <div class="sc-input-label sc-align--right">Description</div>
-                <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
+                <input type="text" class="sc-input" id="name" [(ngModel)]="workout.description" name="name" required>
             </div>
         </div>
     </div>

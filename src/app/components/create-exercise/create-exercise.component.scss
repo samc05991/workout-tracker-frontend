@@ -17,18 +17,81 @@
             }
         }
         
+        .sc-input {
+            width: 195px;
+        }
+
+        .sc-input--xs {
+            width: 60px;
+        }
     }
 
     .statistic-input-container {
         background-color: #626973;
-        padding: 15px;
         display: grid;
         grid-template-rows: auto auto auto;
         grid-template-columns: auto;
+
+        .exercise-details {
+            padding: 15px;
+        }
+
+        .metric-details {
+            padding: 15px;
+            background-color: #f5f5f5;
+            color: #33363d;
+        }
     }
 }
 
 .sc-input-label {
     display: inline-block;
     width: 150px;
+}
+
+.options {
+    .sc-input-label {
+        width: 90px;
+    }
+}
+
+.pop-up {
+    background-color: #33363d;
+    color: #f5f5f5;
+    padding: 10px;
+    width: 340px;
+    position: absolute;
+    border-radius: 20px;
+}
+
+.sc-input--date-day {
+    width: 58px !important;
+}
+
+// temp
+table {
+    width:100%;
+}
+
+table, th, td {
+    border: 1px solid #33363d;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+table#t01 tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+table#t01 tr:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+table#t01 th {
+    background-color: #33363d;
+    color: #f5f5f5;
 }

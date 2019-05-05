@@ -24,10 +24,11 @@ export class CreateExerciseComponent implements OnInit {
     submitted = false;
 
     metricName = '';
-    metricType = 'none';
+    metricType = 'number';
     metricValue: any = {};
     metrics: any = [];
     newMetric: any = {};
+    revealInputs: boolean = false;
 
     constructor(
         private _exerciseService: ExerciseService,
@@ -51,6 +52,8 @@ export class CreateExerciseComponent implements OnInit {
         };
 
         this.exercise.metrics.push(metric);
+        this.revealInputs = false;
+        console.log(this.exercise);
     }
 
     saveExercise() {
