@@ -44,15 +44,15 @@
         <div class="sub-nav-header">
             <h3>Manage Your Workout</h3>
         </div>
-        <div class="sc-row padding-20" *ngFor="let exercise of workout.exercises">
+        <div class="sc-row padding-20" *ngFor="let exercise of workout.exercises; index as i">
             <div class="exercise-item">
                 <div class="details">
                     <h4 class="exercise-title">{{ exercise.name }}</h4>
-                    <p>Hold: 20s</p>
+                    <p *ngFor="let metric of exercise.metrics">{{metric.name}} : {{metric.value}}</p>
                 </div>
                 <div class="options">
                     <button type="button" class="sc-btn sc-btn-block sc-btn--primary sc-btn-sm">Edit</button>
-                    <button type="button" class="sc-btn sc-btn-block sc-btn--danger sc-btn-sm margin-top-15">Remove</button>
+                    <button type="button" class="sc-btn sc-btn-block sc-btn--danger sc-btn-sm margin-top-15" (click)="removeExerciseFromWorkout(i)">Remove</button>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 <div class="exercise-item" *ngFor="let exercise of exercises" (click)="exerciseAddedFromList(exercise)">
                     <div class="details">
                         <h4 class="exercise-title">{{exercise.name}}</h4>
-                        <p>Hold: 20s</p>
+                        <p *ngFor="let metric of exercise.metrics">{{metric.name}} : {{metric.value}}</p>
                     </div>
                 </div>
             </div>

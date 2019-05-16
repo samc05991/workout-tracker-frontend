@@ -10,9 +10,9 @@ export class EnvironmentConfig {
 
     getBaseApiUrl() {
         if ( this.isProd === true ) {
-            return 'https://stark-shore-81887.herokuapp.com';
+            return 'https://track-it-your-way.herokuapp.com/api';
         } else {
-            return 'http://localhost:3000';
+            return 'http://localhost:3000/api';
         }
     }
 }

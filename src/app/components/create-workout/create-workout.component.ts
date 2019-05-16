@@ -46,6 +46,12 @@ export class CreateWorkoutComponent implements OnInit {
     ngOnInit() {
     }
 
+    removeExerciseFromWorkout(i) {
+        console.log(i);
+        this.workout.exercises.splice(i, 1);
+        console.log(this.exercises)
+    }
+
     exerciseAddedFromList(exercise: Exercise) {
         const newExercise = new Exercise();
 
