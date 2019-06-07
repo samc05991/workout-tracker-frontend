@@ -17,7 +17,7 @@ $grey-light: #979DA6;
 $grey-background: #CCD3D9;
 
 body {
-    font-family: 'Baloo', cursive;
+    font-family: "Merriweather Sans", sans-serif;
 }
 .menu-item {
     display: inline-block;
@@ -75,8 +75,16 @@ button:focus {outline:0;}
     margin-top: 15px;
 }
 
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
 .modal {
-    position: absolute;
+    position: fixed;
     display: grid;
     justify-items: center;
     align-items: center;
@@ -87,6 +95,7 @@ button:focus {outline:0;}
     background-color: rgba(0, 0, 0, 0.2);
     text-align: center;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .modal-container {
