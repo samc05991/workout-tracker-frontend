@@ -12,32 +12,9 @@
         <div class="workout-list-item" *ngFor="let workout of workouts">
             <div class="details">
                 <h5 class="">{{workout.name}}</h5>
-                <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
             </div>
             <div class="options">
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
-            </div>
-        </div>
-        <div class="workout-list-item" *ngFor="let workout of workouts">
-            <div class="details">
-                <h5 class="">{{workout.name}}</h5>
-                <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
-            </div>
-            <div class="options">
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
-            </div>
-        </div>
-        <div class="workout-list-item" *ngFor="let workout of workouts">
-            <div class="details">
-                <h5 class="">{{workout.name}}</h5>
-                <p *ngFor="let exercise of workout.exercises" class="">{{exercise.name}}</p>
-            </div>
-            <div class="options">
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Copy</button> 
+                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary" (click)="editWorkout(workout)">Edit</button> 
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
             </div>
@@ -50,5 +27,5 @@
     </div>
 
 
-    <app-create-workout *ngIf="view === 'workout-builder'"></app-create-workout>
+    <app-create-workout *ngIf="view === 'workout-builder'" [workoutToEdit]="selectedWorkout"></app-create-workout>
 </div>

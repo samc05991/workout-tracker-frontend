@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class WorkoutListComponent implements OnInit {
     
     user: User;
+    selectedWorkout: Workout;
     workouts: Workout[] = [];
     submitted = false;
     
@@ -35,6 +36,15 @@ export class WorkoutListComponent implements OnInit {
         this._exerciseService.getExercises();
         this._workoutService.handleGetWorkouts();
         this.workouts = this._workoutService.workouts;
+    }
+
+    /**
+     * Opens up the <create-workout> component to edit an workout
+     * @param {Workout} workout
+     */
+    editWorkout(workout: Workout) {
+        this.selectedWorkout = workout;
+        this.view = 'workout-builder';
     }
 
     toggleView(view: String) {
