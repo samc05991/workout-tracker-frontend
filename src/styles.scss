@@ -83,6 +83,22 @@ button:focus {outline:0;}
     margin-right: 15px;
 }
 
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
 .modal {
     position: fixed;
     display: grid;
@@ -107,5 +123,9 @@ button:focus {outline:0;}
 
     .modal-header {
         padding: 10px;
+    }
+
+    .sc-row {
+        grid-template-columns: unset;
     }
 }
