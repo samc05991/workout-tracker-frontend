@@ -1,12 +1,47 @@
-<div class="sc-container">
-    <div class="menu-item">
-        <div class="sc-card">
-            <div class="sc-card-container">
-                <div class="sc-card-content">
-                    <button class="sc-btn sc-btn-block sc-btn--primary" routerLinkActive="active" [routerLink]="['/workouts']">Workouts</button>
-                </div>
+<div class="sc-container dashboard-container">
+    <div class="sc-card">
+        <div class="sc-card-container">
+            <div class="sc-card-header">
+                <h4>Calorie Tracking</h4>
+            </div>
+            <div class="sc-card-content">
+                <p>Day 1</p>
             </div>
         </div>
     </div>
+
+    <div class="sc-card">
+        <div class="sc-card-container">
+            <div class="sc-card-header" routerLinkActive="active" [routerLink]="['/workouts']">
+                <h4>Workouts</h4>
+            </div>
+            <div class="sc-card-content" routerLinkActive="active" [routerLink]="['/workouts']">
+                <p>Workouts</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sc-card">
+        <div class="sc-card-container">
+            <div class="sc-card-header">
+                <h4>Meal Planner</h4>
+            </div>
+            <div class="sc-card-content">
+                <p>Workouts</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sc-card">
+        <div class="sc-card-container">
+            <div class="sc-card-header">
+                <h4>Shopping List</h4>
+            </div>
+            <div class="sc-card-content">
+                <p>Workouts</p>
+            </div>
+        </div>
+    </div>
+
     <router-outlet></router-outlet>
 </div>

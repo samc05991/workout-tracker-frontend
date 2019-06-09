@@ -1,0 +1,17 @@
+.dashboard-container {
+    width: 100%;
+    display: grid;
+    text-align: left;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .sc-card {
+        height: 200px;
+    }
+}
+
+.sc-container {
+    height: unset;
+}
