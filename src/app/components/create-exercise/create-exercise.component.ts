@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Exercise } from '../../models/exercise.model';
@@ -16,11 +16,12 @@ import { Subject } from 'rxjs';
 })
 export class CreateExerciseComponent implements OnInit {
 
+    @Input() exercise?: Exercise;
+    @Input() exerciseIndex?: number;
     @Output() exerciseAdded = new EventEmitter<Exercise>();
     // model: Subject<boolean> = new Subject<boolean>();
 
     user: User;
-    exercise?: Exercise;
     submitted = false;
 
     metricName = '';
@@ -29,6 +30,7 @@ export class CreateExerciseComponent implements OnInit {
     metrics: any = [];
     newMetric: any = {};
     revealInputs: boolean = false;
+    editMetric: boolean = false;
 
     constructor(
         private _exerciseService: ExerciseService,
@@ -38,22 +40,41 @@ export class CreateExerciseComponent implements OnInit {
         // customize default values of modals used by this component tree
         config.backdrop = 'static';
         config.keyboard = false;
-
-        this.exercise = new Exercise();
+    }
+    
+    ngOnInit() {
+        if(!this.exercise) {
+            this.exercise = new Exercise();
+        }
     }
 
-    ngOnInit() {}
-
-    addMetric() {
+    addMetric(i?: number) {
         const metric = {
             name: this.metricName,
             type: this.metricType,
             value: this.metricValue
         };
 
-        this.exercise.metrics.push(metric);
+        if(i || i === 0) {
+            this.exercise.metrics[i] = metric;
+            this.editMetric = false;
+        }
+        else {
+            this.exercise.metrics.push(metric);
+        }
+
         this.revealInputs = false;
-        console.log(this.exercise);
+    }
+
+    toggleInputs(i?: number) {
+        this.revealInputs = !this.revealInputs;
+
+        if(i || i === 0) {
+            this.editMetric = true;
+            this.metricName = this.exercise.metrics[i].name;
+            this.metricType = this.exercise.metrics[i].type;
+            this.metricValue = this.exercise.metrics[i].value;  
+        }
     }
 
     saveExercise() {

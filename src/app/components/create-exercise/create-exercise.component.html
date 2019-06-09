@@ -9,7 +9,7 @@
         </div>
         
         <div class="statistic-input-container">
-            <div class="exercise-details sc-align--center">
+            <div class="exercise-details sc-align--left">
                 <div class="sc-input-group">
                     <div class="sc-input-label sc-align--right">Exercise Name</div>
                     <input type="text" class="sc-input" [(ngModel)]="exercise.name" name="exerciseName" required><br>
@@ -17,6 +17,12 @@
             </div>
             <div class="metric-details">
                 <div class="metric-list">
+                    <p></p>
+                    <ul>
+                        <li><strong>Key:</strong> This is the name of the metric you are tracking. E.g. reps, weight, or time</li>
+                        <li><strong>Type:</strong> Each metric has a type of data such as time, weight, distance or numbers</li>
+                        <li><strong>Value:</strong> This is the default value of this metric, this can be changed later as you need to</li>
+                    </ul>
                     <table id="t01">
                         <tr>
                             <th>Key</th>
@@ -24,16 +30,16 @@
                             <th>Value</th> 
                             <th>Options</th>
                         </tr>
-                        <tr *ngFor="let metric of exercise.metrics">
+                        <tr *ngFor="let metric of exercise.metrics; index as i">
                             <td>{{metric.name}}</td>
                             <td>{{metric.type}}</td> 
                             <td>{{metric.value}}</td>
-                            <td><button class="sc-btn sc-btn--sm sc-btn--secondary">Edit</button></td>
+                            <td><button class="sc-btn sc-btn--sm sc-btn--secondary" (click)="toggleInputs(i); metricIndex = i">Edit</button></td>
                         </tr>
                     </table>
 
                     <div class="sc-align--center margin-top-20">
-                        <button type="button" (click)="revealInputs = !revealInputs" class="sc-btn sc-btn--primary">+</button>
+                        <button type="button" (click)="toggleInputs()" class="sc-btn sc-btn--primary">+</button>
                     </div>
                 </div>
                 <div *ngIf="revealInputs" class="pop-up">            
@@ -78,7 +84,9 @@
 
                         <br>
 
-                        <button type="button" class="sc-btn sc-btn--primary sc-btn-sm" style="float: right" (click)="addMetric()">Add</button>
+                        <button type="button" *ngIf="!editMetric" class="sc-btn sc-btn--primary sc-btn-sm " style="float: right" (click)="addMetric()">Add</button>
+                        <button type="button" (click)="toggleInputs()" class="sc-btn sc-btn--danger sc-btn-sm margin-right-15" style="float: right">Close</button>
+                        <button type="button" *ngIf="editMetric" class="sc-btn sc-btn--primary sc-btn-sm" style="float: right" (click)="addMetric(metricIndex)">Update</button>
                     </div>
                 </div>
             </div>
