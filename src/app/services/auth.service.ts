@@ -19,8 +19,7 @@ export class AuthService {
     constructor(
         private _http: HttpClient,
         private _envConfig: EnvironmentConfig,
-        private _router: Router,
-        private _dataProvider: DataProviderService
+        private _router: Router
     ) {
         this.userLoggedInChange.subscribe((value) => {
             this.isUserLoggedIn = value;
@@ -36,8 +35,6 @@ export class AuthService {
 
         if(token) {
             return true;
-
-            // @TODO:: Check token expire time
         }
     }
 

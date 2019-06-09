@@ -9,9 +9,10 @@ export class EnvironmentConfig {
     constructor() {}
 
     getBaseApiUrl() {
-        if ( this.isProd === true ) {
+        if (this.isProd === true) {
             return 'https://track-it-your-way.herokuapp.com/api';
-        } else {
+        }
+        else {
             return 'http://localhost:3000/api';
         }
     }

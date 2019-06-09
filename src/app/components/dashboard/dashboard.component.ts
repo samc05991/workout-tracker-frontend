@@ -26,22 +26,11 @@ export class DashboardComponent implements OnInit {
 
     options = {};
 
-    constructor( private _workoutService: WorkoutService, private _authService: AuthService, private _exerciseService: ExerciseService ) {
+    constructor( private _workoutService: WorkoutService, private _authService: AuthService) {
         this.user = this._authService.getCurrentUser();
     }
 
     ngOnInit() {
-        // this._exerciseService.getExercises();
-
-        // this._workoutService.handleGetWorkouts().subscribe( value => {
-        //     this.workouts = value;
-        // });
-        // this._workoutService.getWorkouts()
-        // .subscribe(
-        //     (workouts: Workout[]) => {
-        //         this.workouts = workouts;
-        //         console.log(this.workouts);
-        //     }
-        // );
+        this.workouts = this._workoutService.workouts;
     }
 }

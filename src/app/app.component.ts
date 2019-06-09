@@ -20,11 +20,16 @@ export class AppComponent implements OnInit {
     title = 'workout-tracker-frontend';
     public isUserLoggedIn: Boolean;
 
-    constructor(private _authService: AuthService) {
+    constructor(private _authService: AuthService, private _workoutService: WorkoutService, private _exerciseService: ExerciseService) {
         this.isUserLoggedIn = false;
 
         this._authService.userLoggedInChange.subscribe(value => {
             this.isUserLoggedIn = value;
+
+            if(value) {
+                this._workoutService.handleGetWorkouts();
+                this._exerciseService.getExercises();
+            }
         });
     }
 
