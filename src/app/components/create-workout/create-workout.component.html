@@ -6,7 +6,7 @@
 
         <div class="padding-20">
             <div class="sc-input-group">
-                <div class="sc-input-label sc-align--right">Workout Name</div>
+                <div class="sc-input-label">Workout Name</div><br>
                 <input type="text" class="sc-input" id="name" [(ngModel)]="workout.name" name="name" required>
             </div>
         
@@ -14,16 +14,16 @@
             
             <div class="sc-input-group sc-input-group--date-time">
                 <div class="sc-input-group">
-                    <div class="sc-input-label sc-align--right">Date</div>
+                    <div class="sc-input-label">Date</div><br>
                     <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="workoutOccurrence.date.day" placeholder="DD">
                     <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" [(ngModel)]="workoutOccurrence.date.month" placeholder="MM">
                     <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" [(ngModel)]="workoutOccurrence.date.year" placeholder="YYYY">
                 </div>
             </div>
     
-            <div class="workout-type">
-                <div class="sc-input-label sc-align--right label">Templates</div>
-                <div class="types">
+            <div class="">
+                <div class="sc-input-label">Templates</div><br>
+                <div class="">
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'running', 'sc-btn--light': workout.type !== 'running'}" (click)="workout.type = 'running'">Running</button>
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'amrap', 'sc-btn--light': workout.type !== 'amrap'}" (click)="workout.type = 'amrap'">AMRAP</button>
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'onerepmax', 'sc-btn--light': workout.type !== 'onerepmax'}" (click)="workout.type = 'onerepmax'">One Rep Max</button>
@@ -94,11 +94,10 @@
         <button type="submit" class="sc-btn sc-btn--primary" [disabled]="!workout.name" (click)="submit()">Submit</button>
     </div>
 
-    <div class="modal" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
+    <div class="modal exercise-list" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
         <div class="modal-container">
             <div class="sc-row">
-                <p>The are templates of exercises that you have previously used. You can re-use, edit and track statistics for each exercise!</p>
-                <p>Click an exercise to add to your workout</p>
+                <p>The are templates of exercises that you have previously used. You can re-use, edit and track statistics for each exercise! Click an exercise to add to your workout</p>
             </div>
             <div class="sc-row">
                 <div class="exercise-item padding-15" *ngFor="let exercise of exercises" (click)="exerciseAddedFromList(exercise)">
@@ -121,6 +120,9 @@
                         </div>
                     </div>
                 </div>
+                <span class="margin-right-15">
+                    <button type="button" (click)="savedExerciseModal = false" class="sc-btn sc-btn--danger sc-btn-block">Close</button>
+                </span>
             </div>
         </div>
     </div>

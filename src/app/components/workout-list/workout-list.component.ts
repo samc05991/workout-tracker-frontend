@@ -33,8 +33,6 @@ export class WorkoutListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._exerciseService.getExercises();
-        this._workoutService.handleGetWorkouts();
         this.workouts = this._workoutService.workouts;
     }
 

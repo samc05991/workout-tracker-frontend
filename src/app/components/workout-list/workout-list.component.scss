@@ -39,3 +39,14 @@
         }
     }
 }
+
+/* When the width is less than 400px*/
+@media screen and (max-width: 777px) {
+    .workout-list-container {
+        grid-template-columns: unset;
+        grid-template-rows: unset;
+        grid-template-areas: unset;
+        padding: 0px;
+        margin-bottom: 80px;
+    }    
+}

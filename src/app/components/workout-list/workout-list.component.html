@@ -10,10 +10,13 @@
 
     <div class="workout-list-container" [ngClass]="{'show active': view === 'workout-list' }" *ngIf="view === 'workout-list'">
         <div class="workout-list-item" *ngFor="let workout of workouts">
-            <div class="details">
-                <h5 class="">{{workout.name}}</h5>
+            <div class="workout-list-title">
+                <span class="workout-list-title"><strong>{{workout.name}}</strong></span>
             </div>
-            <div class="options">
+            <div class="workout-list-exercises margin-top-15">
+                <span class="workout-list-title margin-right-15" *ngFor="let exercise of workout.statistics[0].exercises"><strong>{{exercise.name}}</strong></span>
+            </div>
+            <div class="workout-list-controls margin-top-15">
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary" (click)="editWorkout(workout)">Edit</button> 
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
@@ -25,7 +28,5 @@
             </div>
         </div>
     </div>
-
-
     <app-create-workout *ngIf="view === 'workout-builder'" [workoutToEdit]="selectedWorkout"></app-create-workout>
 </div>

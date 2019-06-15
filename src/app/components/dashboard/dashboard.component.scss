@@ -3,7 +3,6 @@
     display: grid;
     text-align: left;
     grid-template-columns: auto auto auto;
-    grid-gap: 20px;
     padding: 20px;
     box-sizing: border-box;
 
@@ -14,4 +13,17 @@
 
 .sc-container {
     height: unset;
+}
+
+
+/* When the width is less than 500px*/
+@media screen and (max-width: 500px) {
+    .dashboard-container {
+        grid-template-columns: auto;
+    
+        .sc-card {
+            height: 150px;
+            margin-top: 10px;
+        }
+    }
 }

@@ -71,6 +71,7 @@
 
     .footer {
         grid-area: footer;
+        margin-bottom: 80px;
     }
 }
 
@@ -128,18 +129,34 @@
 }
 
 /* When the width is less than 400px*/
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     .create-workout-container {
+        padding: 0px;
         grid-template-areas:
             "workout" 
             "exercises"
             "editor"
             "footer";
-    }   
+    }
+
+    .exercise-list {
+        position: absolute;
+        top: -25px;
+
+        .exercise-item {
+            background-color: #CCD3D9;
+            color: #33363D;
+            display: grid;
+            border-radius: 7px;
+            padding: 10px;
+            text-align: left;
+            grid-template-columns: 120px auto;
+        }    
+    }
 }
 
 /* When the width is between 400px and 900px*/
-@media screen and (min-width: 400px) and (max-width: 900px) {
+@media screen and (min-width: 500px) and (max-width: 900px) {
     .create-workout-container {
         grid-template-columns: auto;
         grid-template-areas:

@@ -19,6 +19,7 @@ $grey-background: #CCD3D9;
 body {
     font-family: "Merriweather Sans", sans-serif;
 }
+
 .menu-item {
     display: inline-block;
     width: 50%;
@@ -26,12 +27,20 @@ body {
     box-sizing: border-box;
 }
 
-button:focus {outline:0;}
+button:focus {
+    outline:0;
+}
 
-/* When the width is less than 400px*/
-@media screen and (max-width: 400px) {
+/* When the width is less than 500px*/
+@media screen and (max-width: 500px) {
     .menu-item {
-        width: 80%;
+        width: 100%;
+        height: 100%;
+        margin-top: 0px;
+        
+        .sc-card {
+            height: 100%;
+        }
     }
 
     .create-workout-container {
@@ -43,7 +52,7 @@ button:focus {outline:0;}
 }
 
 /* When the width is between 400px and 900px*/
-@media screen and (min-width: 400px) and (max-width: 900px) {
+@media screen and (min-width: 500px) and (max-width: 900px) {
     .menu-item {
         width: 60%;
     }
