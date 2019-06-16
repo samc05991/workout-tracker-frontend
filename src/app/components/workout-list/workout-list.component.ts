@@ -17,6 +17,7 @@ export class WorkoutListComponent implements OnInit {
     
     user: User;
     selectedWorkout: Workout;
+    selectedAction: string;
     workouts: Workout[] = [];
     submitted = false;
     
@@ -42,6 +43,17 @@ export class WorkoutListComponent implements OnInit {
      */
     editWorkout(workout: Workout) {
         this.selectedWorkout = workout;
+        this.selectedAction = 'edit';
+        this.view = 'workout-builder';
+    }
+
+    /**
+     * Opens up the <create-workout> component to edit an workout
+     * @param {Workout} workout
+     */
+    addWorkoutOccurrence(workout: Workout) {
+        this.selectedWorkout = workout;
+        this.selectedAction = 'add-occurrence';
         this.view = 'workout-builder';
     }
 

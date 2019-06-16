@@ -1,5 +1,4 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Exercise } from '../../models/exercise.model';
 import { User } from '../../models/user.model';
@@ -19,11 +18,10 @@ export class CreateExerciseComponent implements OnInit {
     @Input() exercise?: Exercise;
     @Input() exerciseIndex?: number;
     @Output() exerciseAdded = new EventEmitter<Exercise>();
-    // model: Subject<boolean> = new Subject<boolean>();
+    @Output() closed = new EventEmitter<boolean>();
 
     user: User;
     submitted = false;
-
     metricName = '';
     metricType = 'number';
     metricValue: any = {};
@@ -33,13 +31,8 @@ export class CreateExerciseComponent implements OnInit {
     editMetric: boolean = false;
 
     constructor(
-        private _exerciseService: ExerciseService,
-        private modalService: NgbModal,
-        config: NgbModalConfig,
+        private _exerciseService: ExerciseService
     ) {
-        // customize default values of modals used by this component tree
-        config.backdrop = 'static';
-        config.keyboard = false;
     }
     
     ngOnInit() {
@@ -83,7 +76,7 @@ export class CreateExerciseComponent implements OnInit {
         });
     }
 
-    open(content) {
-        this.modalService.open(content);
+    close() {
+        this.closed.emit(true);
     }
 }

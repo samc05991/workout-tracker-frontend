@@ -10,7 +10,7 @@ export class Workout {
     public statistics?: any;
     public type?: string = 'custom';
 
-    constructor(workout: any) {
+    constructor(workout?: any) {
         if (workout) {
             this._id = workout._id;
             this.name = workout.name;

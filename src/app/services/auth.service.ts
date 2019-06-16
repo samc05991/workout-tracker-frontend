@@ -103,13 +103,6 @@ export class AuthService {
             return this.currentUser;
         }
 
-        if (localStorage.getItem('user')) {
-            this.currentUser = JSON.parse(localStorage.getItem('user'));
-            this.toggleUserIsLoggedIn();
-
-            return this.currentUser;
-        }
-
         if (this.isAuthenticated()) {
             this.refreshCurrentUser().subscribe(
                 (response: any) => {
@@ -127,7 +120,8 @@ export class AuthService {
                     return this.currentUser;
                 }
             );
-        } else {
+        } 
+        else {
             // return a message here too saying not auth
             this._router.navigate(['/']);
         }

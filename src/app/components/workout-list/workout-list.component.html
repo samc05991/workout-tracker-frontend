@@ -4,6 +4,7 @@
             <div class="sc-btn-group">
                 <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-list')" [ngClass]="{'sc-btn--active': view === 'workout-list' }">WORKOUT LIST</button>
                 <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-builder')" [ngClass]="{'sc-btn--active': view === 'workout-builder' }">WORKOUT EDITOR</button>
+                <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-statistics')" [ngClass]="{'sc-btn--active': view === 'workout-statistics' }">WORKOUT STATISTICS</button>            
             </div>
         </div>
     </div>
@@ -18,8 +19,8 @@
             </div>
             <div class="workout-list-controls margin-top-15">
                 <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary" (click)="editWorkout(workout)">Edit</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Re-use</button> 
-                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary">Stats</button> 
+                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary" (click)="addWorkoutOccurrence(workout)">Re-use</button> 
+                <button type="button" class="sc-btn sc-btn--dark sc-btn-sm sc-btn--secondary" (click)="selectedWorkout = workout; toggleView('workout-statistics')">Stats</button> 
             </div>
         </div>
         <div class="workout-list" *ngIf="workouts.length === 0">                         
@@ -28,5 +29,6 @@
             </div>
         </div>
     </div>
-    <app-create-workout *ngIf="view === 'workout-builder'" [workoutToEdit]="selectedWorkout"></app-create-workout>
+    <app-create-workout *ngIf="view === 'workout-builder'" [workoutToEdit]="selectedWorkout" [action]="selectedAction"></app-create-workout>
+    <app-statistics *ngIf="view === 'workout-statistics'" [selectedWorkout]="selectedWorkout"></app-statistics>
 </div>

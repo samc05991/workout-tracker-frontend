@@ -19,6 +19,8 @@ export class CreateWorkoutComponent implements OnInit {
 
     // the workout being created/edited
     @Input() workoutToEdit: Workout = undefined;
+    @Input() action: string = 'new';
+
     workout: Workout;
 
     // this instance of the workout that will be added to the statistics array
@@ -55,8 +57,20 @@ export class CreateWorkoutComponent implements OnInit {
 
     submit() {
         this.workout.created_by = this._authService.getCurrentUserId();
-        this.workout.statistics.push(this.workoutOccurrence);
-        this._workoutService.addWorkout(this.workout).subscribe((response) => {});
+
+        if(this.action === 'new') {
+            this.workout.statistics.push(this.workoutOccurrence);
+            this._workoutService.addWorkout(this.workout).subscribe((response) => {});
+        }
+
+        // if(this.action === 'edit') {
+        //     this._workoutService.editWorkout(this.workout).subscribe((response) => {});
+        // }
+
+        if(this.action === 'add-occurrence') {
+            this.workout.statistics.push(this.workoutOccurrence);
+            this._workoutService.addWorkoutOccurrence(this.workout).subscribe((response) => {});
+        }
     }
 
     ngOnInit() {
@@ -64,6 +78,8 @@ export class CreateWorkoutComponent implements OnInit {
 
         if(this.workout.statistics.length > 0) {
             let length = this.workout.statistics.length;
+
+            this.workoutOccurrence.date = this.workout.statistics[length - 1].date;
             this.workoutOccurrence.exercises = this.workout.statistics[length - 1].exercises;
         }
     }
@@ -110,6 +126,11 @@ export class CreateWorkoutComponent implements OnInit {
             this.workoutOccurrence.exercises.push(newExercise);
             this.exercises.push(newExercise);
         }
+    }
+
+    closeCreateExerciseModal() {
+        this.createExerciseModal = false; 
+        this.selectedExercise = undefined
     }
 
     /**

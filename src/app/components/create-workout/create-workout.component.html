@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <div class="modal" *ngIf="createExerciseModal" (click)="createExerciseModal = false; selectedExercise = undefined">
-        <app-create-exercise (exerciseAdded)="exerciseAddedFromModal($event)" (click)="$event.stopPropagation()" [exercise]="selectedExercise" [exerciseIndex]="selectedExerciseIndex"></app-create-exercise>
+    <div class="modal" *ngIf="createExerciseModal" (click)="closeCreateExerciseModal()">
+        <app-create-exercise (closed)="closeCreateExerciseModal()" (exerciseAdded)="exerciseAddedFromModal($event)" (click)="$event.stopPropagation()" [exercise]="selectedExercise" [exerciseIndex]="selectedExerciseIndex"></app-create-exercise>
     </div>
 </div>

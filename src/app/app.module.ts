@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateExerciseComponent } from './components/create-exercise/create-exercise.component';
 import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { WorkoutListComponent } from './components/workout-list/workout-list.com
     CreateExerciseComponent,
     CreateWorkoutComponent,
     WorkoutListComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
