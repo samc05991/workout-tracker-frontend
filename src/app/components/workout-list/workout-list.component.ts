@@ -5,8 +5,8 @@ import { WorkoutService } from '../../services/workout.service';
 
 import { User } from '../../models/user.model';
 import { Workout } from '../../models/workout.model';
-import { ExerciseService } from 'src/app/services/exercise.service';
 import { Router } from '@angular/router';
+
 @Component({
     selector: 'app-workout-list',
     templateUrl: './workout-list.component.html',
@@ -17,7 +17,7 @@ export class WorkoutListComponent implements OnInit {
     
     user: User;
     selectedWorkout: Workout;
-    selectedAction: string;
+    selectedAction: string = 'new';
     workouts: Workout[] = [];
     submitted = false;
     
@@ -25,7 +25,6 @@ export class WorkoutListComponent implements OnInit {
     
     constructor(
         private _workoutService: WorkoutService, 
-        private _exerciseService: ExerciseService, 
         private _authService: AuthService,
         private _router: Router,
     ) {

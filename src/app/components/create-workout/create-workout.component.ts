@@ -19,7 +19,7 @@ export class CreateWorkoutComponent implements OnInit {
 
     // the workout being created/edited
     @Input() workoutToEdit: Workout = undefined;
-    @Input() action: string = 'new';
+    @Input() action: string;
 
     workout: Workout;
 

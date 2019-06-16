@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ɵConsole } from '@angular/core';
 import { Workout } from 'src/app/models/workout.model';
 import Chart from 'chart.js';
-import { stat } from 'fs';
 
 @Component({
   selector: 'app-statistics',
@@ -23,7 +22,7 @@ export class StatisticsComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        console.log(this.selectedWorkout);
+
         this.getExerciseKeys();
         this.prepareWorkoutStatistics();
 
@@ -53,47 +52,76 @@ export class StatisticsComponent implements OnInit {
     }
 
     randomRGB() {
-        return 'rbga(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ', 1)';
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
     }
 
-    getDataSet() {
+    getDefaultDataSet() {
         return {
             // metric name
             label: '',
 
             // metric value
             data: [],
+            fill: false,
+            id: 0,
 
-            backgroundColor: [this.randomRGB()],
+            backgroundColor: this.randomRGB(),
             borderColor: [this.randomRGB()],
             borderWidth: 1
         }
     }
 
     prepareWorkoutStatistics() {
-        // add date labels
+        this.setUpDateLabels();
+        this.setUpDataSets();
+        this.addWorkoutData();
+    }
+
+    setUpDateLabels() {
         for(let i = 0; i < this.selectedWorkout.statistics.length; i++) {
-            let date = this.selectedWorkout.statistics[i].date.day + '/' + this.selectedWorkout.statistics[i].date.month;
+            this.statistics.labels.push(this.selectedWorkout.statistics[i].date.day + '/' + this.selectedWorkout.statistics[i].date.month);
+        }
+    }
 
-            this.statistics.labels.push(date);
-
+    setUpDataSets() {
+        for(let i = 0; i < this.selectedWorkout.statistics.length; i++) {
             for(let j = 0; j < this.selectedWorkout.statistics[i].exercises.length; j++) {
-                let dataset = this.getDataSet();
+                let dataSetIndex = this.findDataSet(this.selectedWorkout.statistics[i].exercises[j].name);
+                
+                if(dataSetIndex === -1) {
+                    let dataSet = this.getDefaultDataSet();
 
-                dataset.label = this.selectedWorkout.statistics[i].exercises[j].name;
+                    dataSet.label = this.selectedWorkout.statistics[i].exercises[j].name;
+                    dataSet.id = j;
 
-                for(let k = 0; k < this.selectedWorkout.statistics[i].exercises[j].metrics.length; k++) {
-                    for(let key in this.exerciseKeys) {
-                        if(this.selectedWorkout.statistics[i].exercises[j].metrics[k].name === this.exerciseKeys[key].key && this.exerciseKeys[key].active) {
-                            dataset.data.push(this.selectedWorkout.statistics[i].exercises[j].metrics[k].value)
-                        }
-                    }
+                    this.statistics.datasets.push(dataSet);
                 }
-
-                this.statistics.datasets.push(dataset);
             }
         }
-        console.log(this.statistics);
+    }
+
+    addWorkoutData() {
+        for(let i = 0; i < this.selectedWorkout.statistics.length; i++) {
+            for(let j = 0; j < this.selectedWorkout.statistics[i].exercises.length; j++) {
+                for(let k = 0; k < this.selectedWorkout.statistics[i].exercises[j].metrics.length; k++) {
+                    let dataSetIndex = this.findDataSet(this.selectedWorkout.statistics[i].exercises[j].name);
+                    if(dataSetIndex >= 0 && this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].name].active) {
+                        this.statistics.datasets[dataSetIndex].data.push(this.selectedWorkout.statistics[i].exercises[j].metrics[k].value)
+                    }
+                }
+            }
+        }
+    }
+
+    findDataSet(key) {
+        for(let k = 0; k <= this.statistics.datasets.length; k++) {
+            if(this.statistics.datasets[k] && this.statistics.datasets[k].label == key) {
+                return k;
+            }
+        }
+
+        return -1;
     }
 
     prepareChart() {
