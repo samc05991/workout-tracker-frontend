@@ -1,0 +1,16 @@
+<button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()">Next</button>
+<div class="datepicker-container">
+  <span>Monday</span>
+  <span>Tuesday</span>
+  <span>Wednesday</span>
+  <span>Thursday</span>
+  <span>Friday</span>
+  <span>Saturday</span>
+  <span>Sunday</span>
+
+  <span *ngFor="let day of arrDays">
+    <span class="">
+      {{day ? day.format('DD') : ""}}
+    </span><br>
+  </span>
+</div>

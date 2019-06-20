@@ -8,6 +8,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateExerciseComponent } from './components/create-exercise/create-exercise.component';
 import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'exercises/create-exercise', component: CreateExerciseComponent },
   { path: 'workouts', component: WorkoutListComponent},
-  { path: 'workouts/create-workout', component: CreateWorkoutComponent }
+  { path: 'workouts/create-workout', component: CreateWorkoutComponent },
+  { path: 'datepicker', component: DatepickerComponent }
+
 ];
 
 @NgModule({

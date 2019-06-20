@@ -17,6 +17,7 @@ import { CreateExerciseComponent } from './components/create-exercise/create-exe
 import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
     CreateWorkoutComponent,
     WorkoutListComponent,
     StatisticsComponent,
+    DatepickerComponent,
   ],
   imports: [
     BrowserModule,
