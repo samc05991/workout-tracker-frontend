@@ -1,16 +1,39 @@
-<button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()">Next</button>
-<div class="datepicker-container">
-  <span>Monday</span>
-  <span>Tuesday</span>
-  <span>Wednesday</span>
-  <span>Thursday</span>
-  <span>Friday</span>
-  <span>Saturday</span>
-  <span>Sunday</span>
-
-  <span *ngFor="let day of arrDays">
-    <span class="">
-      {{day ? day.format('DD') : ""}}
-    </span><br>
-  </span>
+<div class="sc-datepicker">
+    <div class="sc-datepicker-input">
+        <input type="text" value="{{selectedDate.dateMoment.format('DD MM YYYY')}}">
+    </div>
+    <div class="sc-datepicker-controls">
+        <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()"><<</button>
+        <span>{{dateContext.format('MMMM')}}</span>  
+        <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()">>></button>
+    </div>
+    <div class="sc-datepicker-body">    
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">M</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">T</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">W</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">T</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">F</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">S</span>
+        </div>
+        <div class="sc-datepicker-date-header-item">
+          <span class="sc-datepicker-day-header-text">S</span>
+        </div>
+        <span class="sc-datepicker-number" [ngClass]="{'sc-date--selected': day && selectedDate.dateMoment.format('DD\MM') === day.dateMoment.format('DD\MM')}" *ngFor="let day of arrDays" (click)="selectDate(day)">
+            <span class="">
+              {{day.dateMoment ? day.dateMoment.format('DD') : ""}}
+            </span><br>
+        </span>
+    </div>
 </div>
+

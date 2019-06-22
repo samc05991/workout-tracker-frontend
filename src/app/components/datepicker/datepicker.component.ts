@@ -9,14 +9,13 @@ import * as moment from "moment";
 export class DatepickerComponent implements OnInit {
     arrDays: any[] = [];
     calendar: any = {};
-
-    calendarItem: any = {
-
-    }
-
+    month: string = "Motnh";
+    selectedDate: any = {};
     dateContext: moment.Moment = moment();
 
-    constructor() { }
+    constructor() {
+        this.selectedDate.dateMoment = moment();
+     }
 
     ngOnInit() {
         this.getDaysArrayByMonth();
@@ -31,9 +30,13 @@ export class DatepickerComponent implements OnInit {
             let date = this.dateContext.clone();
             let current = date.date(i);
 
-            this.arrDays.push(current);
-        }
+            let dateObject = {
+                dateMoment: date,
+                selected: i === this.dateContext.date() ? true : false
+            }
 
+            this.arrDays.push(dateObject);
+        }
         this.addInactiveDates();
     }
 
@@ -51,5 +54,9 @@ export class DatepickerComponent implements OnInit {
         this.dateContext.add(1, 'month');
 
         this.getDaysArrayByMonth();
+    }
+
+    selectDate(date: any) {
+        this.selectedDate = date;
     }
 }

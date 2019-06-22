@@ -1,4 +1,57 @@
-.datepicker-container {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
+.sc-datepicker {
+    margin: 20px;
+
+    .sc-datepicker-input {
+        width: 365px;
+
+        input {
+            height: 20px;
+            border-radius: 6px;
+            width: 100%;
+            border: unset;
+        }
+
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    
+    .sc-datepicker-controls {
+        width: 365px;
+        background-color: #33363D;
+        border-radius: 5px 5px 0px 0px;
+        color: #FAFCFC;
+        display: grid;
+        text-align: center;
+        grid-template-columns: 30px auto 30px;
+        box-sizing: border-box;
+        padding: 10px;
+        .sc-btn {
+            min-width: unset;
+            min-height: unset;
+        }
+    }
+    
+    .sc-datepicker-body {
+        width: 365px;
+        padding: 10px;
+        border-radius: 0px 0px 5px 5px;
+        box-sizing: border-box;
+        color: #33363D;
+        background-color: #FAFCFC;
+        display: grid;
+        text-align: center;
+        grid-template-columns: auto auto auto auto auto auto auto;
+        grid-template-rows: auto auto auto;
+    
+        .sc-datepicker-date-header-item, .sc-datepicker-number {
+            padding: 10px;
+            height: 25px;
+            border-radius: 20px;
+        }
+    
+        .sc-date--selected {
+            background-color: #33363D;
+            color: #FAFCFC;
+        }
+    }
 }
