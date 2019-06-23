@@ -15,14 +15,12 @@
             <div class="sc-input-group sc-input-group--date-time">
                 <div class="sc-input-group">
                     <div class="sc-input-label">Date</div><br>
-                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="workoutOccurrence.date.day" placeholder="DD">
-                    <input type="number" max="2" class="sc-input sc-input--number sc-input--date-month" [(ngModel)]="workoutOccurrence.date.month" placeholder="MM">
-                    <input type="number" max="4" class="sc-input sc-input--number sc-input--date-year" [(ngModel)]="workoutOccurrence.date.year" placeholder="YYYY">
+                    <app-datepicker (dateAdded)="updateDate($event)"></app-datepicker>
                 </div>
             </div>
     
-            <div class="">
-                <div class="sc-input-label">Templates</div><br>
+            <!-- <div class="">
+                <div class="sc-input-group sc-input-label">Templates</div><br>
                 <div class="">
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'running', 'sc-btn--light': workout.type !== 'running'}" (click)="workout.type = 'running'">Running</button>
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'amrap', 'sc-btn--light': workout.type !== 'amrap'}" (click)="workout.type = 'amrap'">AMRAP</button>
@@ -31,7 +29,7 @@
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'rounds', 'sc-btn--light': workout.type !== 'rounds'}" (click)="workout.type = 'rounds'">Rounds</button>
                     <button type="button" class="sc-btn margin-right-15" [ngClass]="{'sc-btn--primary': workout.type === 'custom', 'sc-btn--light': workout.type !== 'custom'}" (click)="workout.type = 'custom'">Custom</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

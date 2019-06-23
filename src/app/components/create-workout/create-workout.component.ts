@@ -5,6 +5,7 @@ import { Workout } from '../../models/workout.model';
 import { ExerciseService } from '../../services/exercise.service';
 import { WorkoutService } from '../../services/workout.service';
 import { AuthService } from '../../services/auth.service';
+import { WorkoutOccurrence } from 'src/app/models/workoutOccurrence.model';
 
 @Component({
     selector: 'app-create-workout',
@@ -24,10 +25,7 @@ export class CreateWorkoutComponent implements OnInit {
     workout: Workout;
 
     // this instance of the workout that will be added to the statistics array
-    workoutOccurrence: any = {
-        date: {},
-        exercises: []
-    };
+    workoutOccurrence: WorkoutOccurrence;
 
     // if a specific exercise has been selected
     selectedExercise: Exercise = undefined;
@@ -47,6 +45,8 @@ export class CreateWorkoutComponent implements OnInit {
         private _exerciseService: ExerciseService,
         private _authService: AuthService
     ) {
+        this.workoutOccurrence = new WorkoutOccurrence();
+
         //initialize and subscribe to the exercise lists
         this.exercises = this._exerciseService.exercises;
 
@@ -79,8 +79,7 @@ export class CreateWorkoutComponent implements OnInit {
         if(this.workout.statistics.length > 0) {
             let length = this.workout.statistics.length;
 
-            this.workoutOccurrence.date = this.workout.statistics[length - 1].date;
-            this.workoutOccurrence.exercises = this.workout.statistics[length - 1].exercises;
+            this.workoutOccurrence = Object.assign(this.workoutOccurrence, this.workout.statistics[length - 1]);
         }
     }
 
@@ -89,7 +88,7 @@ export class CreateWorkoutComponent implements OnInit {
      * @param {Exercise} exercise
      */
     editExerciseInWorkout(exercise: Exercise, i: number) {
-        this.selectedExercise = exercise;
+        this.selectedExercise = new Exercise(exercise);
         this.selectedExerciseIndex = i;
         this.createExerciseModal = true;
     }
@@ -126,6 +125,10 @@ export class CreateWorkoutComponent implements OnInit {
             this.workoutOccurrence.exercises.push(newExercise);
             this.exercises.push(newExercise);
         }
+    }
+
+    updateDate($event) {
+        this.workoutOccurrence.date = $event.dateMoment.format('YYYYMMDD');
     }
 
     closeCreateExerciseModal() {

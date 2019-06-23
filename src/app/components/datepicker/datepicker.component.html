@@ -1,39 +1,42 @@
-<div class="sc-datepicker">
+<div class="sc-datepicker"  (click)="showCalendar = !showCalendar">
     <div class="sc-datepicker-input">
-        <input type="text" value="{{selectedDate.dateMoment.format('DD MM YYYY')}}">
+        <input type="text" class="sc-input" value="{{selectedDate.dateMoment.format('dddd, MMMM Do YYYY')}}" >
     </div>
-    <div class="sc-datepicker-controls">
+    <div class="sc-datepicker-controls" *ngIf="showCalendar">
         <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()"><<</button>
         <span>{{dateContext.format('MMMM')}}</span>  
         <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()">>></button>
     </div>
-    <div class="sc-datepicker-body">    
+    <div class="sc-datepicker-body" *ngIf="showCalendar" (click)="$event.stopPropagation()">    
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">M</span>
+            <span class="sc-datepicker-day-header-text">M</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">T</span>
+            <span class="sc-datepicker-day-header-text">T</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">W</span>
+            <span class="sc-datepicker-day-header-text">W</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">T</span>
+            <span class="sc-datepicker-day-header-text">T</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">F</span>
+            <span class="sc-datepicker-day-header-text">F</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">S</span>
+            <span class="sc-datepicker-day-header-text">S</span>
         </div>
         <div class="sc-datepicker-date-header-item">
-          <span class="sc-datepicker-day-header-text">S</span>
+            <span class="sc-datepicker-day-header-text">S</span>
         </div>
         <span class="sc-datepicker-number" [ngClass]="{'sc-date--selected': day && selectedDate.dateMoment.format('DD\MM') === day.dateMoment.format('DD\MM')}" *ngFor="let day of arrDays" (click)="selectDate(day)">
             <span class="">
-              {{day.dateMoment ? day.dateMoment.format('DD') : ""}}
+                {{day.dateMoment ? day.dateMoment.format('DD') : ""}}
             </span><br>
         </span>
+    </div>
+    <div class="sc-datepicker-controls" *ngIf="showCalendar">
+        <button type="button" class="sc-btn sc-btn--danger">X</button>
     </div>
 </div>
 

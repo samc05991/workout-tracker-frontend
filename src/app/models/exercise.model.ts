@@ -8,7 +8,6 @@ export class Exercise {
     constructor(exercise?: any) {
 
         if (exercise) {
-            this._id = exercise._id;
             this.name = exercise.name;
             this.metrics = exercise.metrics;
             this.created_by = exercise.created_by;

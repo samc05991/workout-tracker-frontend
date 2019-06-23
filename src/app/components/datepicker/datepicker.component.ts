@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from "moment";
 
 @Component({
@@ -11,7 +11,10 @@ export class DatepickerComponent implements OnInit {
     calendar: any = {};
     month: string = "Motnh";
     selectedDate: any = {};
+    showCalendar: boolean = false;
     dateContext: moment.Moment = moment();
+
+    @Output() dateAdded = new EventEmitter();
 
     constructor() {
         this.selectedDate.dateMoment = moment();
@@ -37,6 +40,7 @@ export class DatepickerComponent implements OnInit {
 
             this.arrDays.push(dateObject);
         }
+
         this.addInactiveDates();
     }
 
@@ -58,5 +62,7 @@ export class DatepickerComponent implements OnInit {
 
     selectDate(date: any) {
         this.selectedDate = date;
+
+        this.dateAdded.emit(this.selectedDate);
     }
 }
