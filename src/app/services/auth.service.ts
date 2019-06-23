@@ -50,6 +50,8 @@ export class AuthService {
                 localStorage.setItem('user', JSON.stringify(this.currentUser));
                 localStorage.setItem('token', JSON.stringify(data.token));
 
+                this.isUserLoggedIn = true;
+
                 this.toggleUserIsLoggedIn();
 
                 this._router.navigate(['/dashboard']);
@@ -70,12 +72,24 @@ export class AuthService {
                 localStorage.setItem('user', JSON.stringify(this.currentUser));
                 localStorage.setItem('token', JSON.stringify(data['token']));
 
+                this.isUserLoggedIn = true;
+
                 this.toggleUserIsLoggedIn();
 
                 this._router.navigate(['/dashboard']);
             },
             (error: any) => {}
         );
+    }
+
+    handleUserLogout () {
+        localStorage.clear();
+
+        this.isUserLoggedIn = false;
+
+        this.toggleUserIsLoggedIn();
+
+        this._router.navigate(['/']);
     }
 
     addUser(user: User): Observable<User> {

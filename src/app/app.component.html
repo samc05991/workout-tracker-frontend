@@ -12,8 +12,9 @@
                     <div class="sc-btn-group">
                         <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/login']">Login</button>
                         <button *ngIf="!isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/sign-up']">Sign Up</button>
-                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/dashboard']">Workout</button>
-                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/workouts']">Dashboard</button>
+                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" (click)="logout()">Logout</button>
+                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/workouts']">Workout</button>
+                        <button *ngIf="isUserLoggedIn" type="button" class="sc-btn" routerLinkActive="sc-btn--active" [routerLink]="['/dashboard']">Dashboard</button>
                     </div>
                 </div>
             </div>
