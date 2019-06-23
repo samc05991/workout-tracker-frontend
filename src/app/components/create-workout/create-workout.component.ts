@@ -111,15 +111,15 @@ export class CreateWorkoutComponent implements OnInit {
      * @param $event 
      * @param {number} i 
      */
-    exerciseAddedFromModal($event, i?: number) {
+    exerciseAddedFromModal($event) {
         const newExercise = new Exercise();
 
-        newExercise.name = $event.name;
-        newExercise.metrics = $event.metrics;
+        newExercise.name = $event.exercise.name;
+        newExercise.metrics = $event.exercise.metrics;
 
         // if we have an index, we are editing
-        if(i || i === 0) {
-            this.workoutOccurrence.exercises[i] = newExercise;
+        if($event.index >= 0) {
+            this.workoutOccurrence.exercises[$event.index] = newExercise;
         }
         else {
             this.workoutOccurrence.exercises.push(newExercise);

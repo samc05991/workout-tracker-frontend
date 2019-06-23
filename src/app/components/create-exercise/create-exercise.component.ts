@@ -16,8 +16,8 @@ import { Subject } from 'rxjs';
 export class CreateExerciseComponent implements OnInit {
 
     @Input() exercise?: Exercise;
-    @Input() exerciseIndex?: number;
-    @Output() exerciseAdded = new EventEmitter<Exercise>();
+    @Input() exerciseIndex?: number = undefined;
+    @Output() exerciseAdded = new EventEmitter();
     @Output() closed = new EventEmitter<boolean>();
 
     user: User;
@@ -72,7 +72,12 @@ export class CreateExerciseComponent implements OnInit {
 
     saveExercise() {
         this._exerciseService.addExercise(this.exercise).subscribe((response: any) => {
-            this.exerciseAdded.emit(this.exercise);
+            let data = {
+                exercise: this.exercise,
+                index: this.exerciseIndex
+            }
+
+            this.exerciseAdded.emit(data);
         });
     }
 
