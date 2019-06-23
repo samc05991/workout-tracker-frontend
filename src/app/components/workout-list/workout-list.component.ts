@@ -29,11 +29,14 @@ export class WorkoutListComponent implements OnInit {
         private _router: Router,
     ) {
         this.user = this._authService.getCurrentUser();
-        this.view = 'workout-builder';
+        this.workouts = this._workoutService.workouts;
+        this.view = 'workout-list';
     }
 
-    ngOnInit() {
-        this.workouts = this._workoutService.workouts;
+    ngOnInit() {   
+        this._workoutService.updateWorkoutListSubscriber.subscribe(value => {
+            this.workouts = this._workoutService.workouts;
+        });
     }
 
     /**

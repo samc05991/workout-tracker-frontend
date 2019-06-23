@@ -6,7 +6,6 @@ import { Workout } from '../models/workout.model';
 import { EnvironmentConfig } from '../services/environment-config.service';
 import { AuthService } from '../services/auth.service';
 import { DataProviderService } from './data-provider.service';
-// import { User } from '../models/user.model';
 
 @Injectable()
 
@@ -17,6 +16,8 @@ export class WorkoutService {
 
     // Events
     workoutIsEdit = new EventEmitter<Workout>();
+
+    gettingWorkouts: boolean = false;
 
     updateWorkoutListSubscriber: Subject<Workout> = new Subject<Workout>();
 
@@ -47,9 +48,11 @@ export class WorkoutService {
     }
 
     handleGetWorkouts() {
-        if (this.workouts.length > 0) {
+        if (this.workouts.length > 0 || this.gettingWorkouts) {
             return this.workouts;
         }
+
+        this.gettingWorkouts = true;
 
         return this.getWorkouts().subscribe((response: any) => {
             const workouts = response.obj;
@@ -59,6 +62,8 @@ export class WorkoutService {
 
                 this.updateWorkoutsList(workoutObject);
             }
+
+            this.gettingWorkouts = false;
 
             return workouts;
         });

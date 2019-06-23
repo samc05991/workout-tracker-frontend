@@ -31,6 +31,6 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.workouts = this._workoutService.workouts;
+        // this.workouts = this._workoutService.workouts;
     }
 }

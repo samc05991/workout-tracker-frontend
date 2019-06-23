@@ -12,7 +12,7 @@ import { DataProviderService } from './data-provider.service';
 export class AuthService {
     public currentUser: User;
 
-    isUserLoggedIn: Boolean;
+    isUserLoggedIn: boolean;
 
     userLoggedInChange: Subject<boolean> = new Subject<boolean>();
 
@@ -39,7 +39,7 @@ export class AuthService {
     }
 
     toggleUserIsLoggedIn() {
-        this.userLoggedInChange.next(!this.isUserLoggedIn);
+        this.userLoggedInChange.next(this.isUserLoggedIn);
     }
 
     handleAddUser(user: User) {
@@ -114,6 +114,8 @@ export class AuthService {
                     user.workouts = response.obj[0].workouts;
 
                     this.currentUser = user;
+
+                    this.isUserLoggedIn = true;
 
                     this.toggleUserIsLoggedIn();
 

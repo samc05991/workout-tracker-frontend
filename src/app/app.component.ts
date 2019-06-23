@@ -37,4 +37,8 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         const currentUser: User = this._authService.getCurrentUser();
     }
+
+    logout() {
+        this._authService.handleUserLogout();
+    }
 }

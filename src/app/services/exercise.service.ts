@@ -17,6 +17,8 @@ export class ExerciseService {
     exerciseSubject: Subject<Exercise> = new Subject<Exercise>();
     exerciseIsEdit = new EventEmitter<Exercise>();
 
+    gettingExercises: boolean = false;
+
     constructor(private _http: HttpClient,
         private _envConfig: EnvironmentConfig,
         private _authService: AuthService,
@@ -54,11 +56,15 @@ export class ExerciseService {
     }
 
     getExercises() {
-        if (this.exercises.length > 0) {
+        if (this.exercises.length > 0 || this.getExercises) {
             return this.exercises;
         }
 
+        this.gettingExercises = true;
+
         return this.setExercises().subscribe((result: any) => {
+            this.exercises = [];
+
             const exercises = result.obj;
             const transformedExercises: Exercise[] = [];
 
@@ -69,7 +75,10 @@ export class ExerciseService {
                     this.updateExerciseList(exerciseObject);
                 }
             }
+
+            this.gettingExercises = false;
         });
+
     }
 
     editExercise(exercise: Exercise) {
