@@ -73,6 +73,10 @@ export class WorkoutService {
         return this._http.post<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/create-workout', { workout });
     }
 
+    editWorkout(workout: Workout): Observable<Workout>  {
+        return this._http.patch<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/update', { workout });
+    }
+
     addWorkoutOccurrence(workout: Workout): Observable<Workout>  {
         return this._http.patch<Workout>(this._envConfig.getBaseApiUrl() + '/workouts/update', { workout });
     }

@@ -56,7 +56,7 @@ export class ExerciseService {
     }
 
     getExercises() {
-        if (this.exercises.length > 0 || this.getExercises) {
+        if (this.exercises.length > 0 || this.gettingExercises) {
             return this.exercises;
         }
 
@@ -66,7 +66,6 @@ export class ExerciseService {
             this.exercises = [];
 
             const exercises = result.obj;
-            const transformedExercises: Exercise[] = [];
 
             if (exercises.length > 0) {
                 for (const exercise of exercises) {
@@ -85,18 +84,18 @@ export class ExerciseService {
         this.exerciseIsEdit.emit(exercise);
     }
 
-    // updateExercise(Exercise: Exercise) {
-    //     const body = JSON.stringify(Exercise);
-    //     const headers = new Headers({'Content-Type': 'application/json'});
-    //     return this.http.patch('http://localhost:3000/Exercise/' + Exercise.ExerciseId, body, {headers: headers})
-    //         .map((response: Response) => response.json())
-    //         .catch((error: Response) => Observable.throw(error.json()));
-    // }
+    updateExercise(exercise: Exercise) {
+        const params = { exercise: exercise };
+        params.exercise.created_by = this.user._id;
 
-    // deleteExercise(Exercise: Exercise) {
-    //     this.Exercises.splice(this.Exercises.indexOf(Exercise), 1);
-    //     return this.http.delete('http://localhost:3000/Exercise/' + Exercise.ExerciseId)
-    //         .map((response: Response) => response.json())
-    //         .catch((error: Response) => Observable.throw(error.json()));
-    // }
+        return this._http.patch<Exercise>(this._envConfig.getBaseApiUrl() + '/exercises/edit-exercise', { params });
+    }
+
+    deleteExercise(exercise: Exercise) {
+        this.exercises.splice(this.exercises.indexOf(exercise), 0);
+
+        return this._http.delete(this._envConfig.getBaseApiUrl() + '/exercises/' + exercise._id).subscribe((response) => {
+            return response;
+        });
+    }
 }
