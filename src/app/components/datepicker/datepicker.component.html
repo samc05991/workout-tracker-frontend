@@ -1,10 +1,10 @@
-<div class="sc-datepicker"  (click)="showCalendar = !showCalendar">
-    <div class="sc-datepicker-input">
+<div class="sc-datepicker">
+    <div class="sc-datepicker-input" (click)="showCalendar = !showCalendar">
         <input type="text" class="sc-input" value="{{selectedDate.dateMoment.format('dddd, MMMM Do YYYY')}}" >
     </div>
     <div class="sc-datepicker-controls" *ngIf="showCalendar">
-        <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()"><<</button>
-        <span>{{dateContext.format('MMMM')}}</span>  
+        <button type="button" class="sc-btn sc-btn--primary" (click)="subtractMonth()"><<</button>
+        <span>{{currentDate.format('MMMM')}}</span>  
         <button type="button" class="sc-btn sc-btn--primary" (click)="addMonth()">>></button>
     </div>
     <div class="sc-datepicker-body" *ngIf="showCalendar" (click)="$event.stopPropagation()">    

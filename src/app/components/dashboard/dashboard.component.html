@@ -1,47 +1,41 @@
 <div class="sc-container dashboard-container">
-    <div class="sc-card">
-        <div class="sc-card-container">
-            <div class="sc-card-header">
-                <span>Calorie Tracking</span>
-            </div>
-            <div class="sc-card-content">
-                <p>Day 1</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="sc-card">
-        <div class="sc-card-container">
-            <div class="sc-card-header" routerLinkActive="active" [routerLink]="['/workouts']">
-                <span>Workouts</span>
-            </div>
-            <div class="sc-card-content" routerLinkActive="active" [routerLink]="['/workouts']">
-                <p>Workouts</p>
+    <div class="app-list">
+        <h2>Your Apps</h2>
+    
+        <div class="sc-card">
+            <div class="sc-card-container">
+                <div class="sc-card-header" routerLinkActive="active" [routerLink]="['/workouts']">
+                    <span>Workouts</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="sc-card">
-        <div class="sc-card-container">
-            <div class="sc-card-header">
-                <span>Meal Planner</span>
+    <div class="coming-soon">
+        <h2>Coming Soon</h2>
+        <div class="sc-card">
+            <div class="sc-card-container">
+                <div class="sc-card-header">
+                    <span>Calorie Tracking</span>
+                </div>
             </div>
-            <div class="sc-card-content">
-                <p>Workouts</p>
+        </div>
+    
+        <div class="sc-card">
+            <div class="sc-card-container">
+                <div class="sc-card-header">
+                    <span>Meal Planner</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="sc-card">
+            <div class="sc-card-container">
+                <div class="sc-card-header">
+                    <span>Shopping List</span>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="sc-card">
-        <div class="sc-card-container">
-            <div class="sc-card-header">
-                <span>Shopping List</span>
-            </div>
-            <div class="sc-card-content">
-                <p>Workouts</p>
-            </div>
-        </div>
-    </div>
-
     <router-outlet></router-outlet>
 </div>

@@ -4,7 +4,7 @@
             <div class="sc-btn-group">
                 <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-list')" [ngClass]="{'sc-btn--active': view === 'workout-list' }">LIST</button>
                 <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-builder')" [ngClass]="{'sc-btn--active': view === 'workout-builder' }">EDITOR</button>
-                <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-statistics')" [ngClass]="{'sc-btn--active': view === 'workout-statistics' }">STATISTICS</button>            
+                <!-- <button class="sc-btn sc-btn-sm" (click)="toggleView('workout-statistics')" [ngClass]="{'sc-btn--active': view === 'workout-statistics' }">STATISTICS</button>             -->
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="workout-list" *ngIf="workouts.length === 0">                         
             <div class="" role="alert">
-                Looks like you've yet to make a workout! Use the workout builder to get started!
+                Looks like you've yet to make a workout! Use the editor to get started!
             </div>
         </div>
     </div>

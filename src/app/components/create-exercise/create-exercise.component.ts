@@ -4,9 +4,6 @@ import { Exercise } from '../../models/exercise.model';
 import { User } from '../../models/user.model';
 
 import { ExerciseService } from '../../services/exercise.service';
-import { AuthService } from '../../services/auth.service';
-import { DataProviderService } from 'src/app/services/data-provider.service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-create-exercise',
@@ -16,17 +13,18 @@ import { Subject } from 'rxjs';
 export class CreateExerciseComponent implements OnInit {
 
     @Input() exercise?: Exercise;
-    @Input() exerciseIndex?: number = undefined;
+    @Input() exerciseIndex: any = undefined;
     @Output() exerciseAdded = new EventEmitter();
     @Output() closed = new EventEmitter<boolean>();
 
     user: User;
     submitted = false;
-    metricName = '';
-    metricType = 'number';
-    metricValue: any = {};
+    newMetric: any = {
+        metricName: 'Reps',
+        metricType: 'number',
+        metricValue: undefined
+    }
     metrics: any = [];
-    newMetric: any = {};
     revealInputs: boolean = false;
     editMetric: boolean = false;
 
@@ -41,32 +39,39 @@ export class CreateExerciseComponent implements OnInit {
         }
     }
 
+    /**
+     * If i, editing metrics, else adding new
+     * @param {number} i 
+     */
     addMetric(i?: number) {
-        const metric = {
-            name: this.metricName,
-            type: this.metricType,
-            value: this.metricValue
-        };
+        if(i >= 0) {
+            this.exercise.metrics[i] = Object.assign(this.exercise.metrics[i], this.newMetric)
 
-        if(i || i === 0) {
-            this.exercise.metrics[i] = metric;
             this.editMetric = false;
         }
         else {
-            this.exercise.metrics.push(metric);
+            this.exercise.metrics.push(Object.assign({}, this.newMetric));
         }
+
+        this.newMetric = {
+            metricValue: {}
+        };
 
         this.revealInputs = false;
     }
 
+    /**
+     * If i, editing metrics, else adding new
+     * @param {number} i 
+     */
     toggleInputs(i?: number) {
         this.revealInputs = !this.revealInputs;
 
-        if(i || i === 0) {
+        if(i >= 0) {
             this.editMetric = true;
-            this.metricName = this.exercise.metrics[i].name;
-            this.metricType = this.exercise.metrics[i].type;
-            this.metricValue = this.exercise.metrics[i].value;  
+            this.newMetric.metricName = this.exercise.metrics[i].metricName;
+            this.newMetric.metricType = this.exercise.metrics[i].metricType;
+            this.newMetric.metricValue = this.exercise.metrics[i].metricValue;  
         }
     }
 

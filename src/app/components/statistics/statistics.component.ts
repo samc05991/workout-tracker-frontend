@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ɵConsole } from '@angular/core';
 import { Workout } from 'src/app/models/workout.model';
 import Chart from 'chart.js';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-statistics',
@@ -22,11 +23,17 @@ export class StatisticsComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-
         this.getExerciseKeys();
         this.prepareWorkoutStatistics();
 
         let chart = this.prepareChart();
+    }
+
+    betterColors() {
+        this.statistics.labels=[];
+        this.statistics.datasets = [];
+        this.prepareWorkoutStatistics();
+        this.prepareChart();
     }
 
     getExerciseKeys() {
@@ -40,10 +47,10 @@ export class StatisticsComponent implements OnInit {
                 for(let k = 0; k < this.selectedWorkout.statistics[i].exercises[j].metrics.length; k++) {
 
                     // if the metric doesn't already exist
-                    if(!this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].name]) {
-                        this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].name] = {
+                    if(!this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricName]) {
+                        this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricName] = {
                             active: k === 0 ? true : false,
-                            key: this.selectedWorkout.statistics[i].exercises[j].metrics[k].name
+                            key: this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricName
                         };
                     }
                 }
@@ -68,7 +75,7 @@ export class StatisticsComponent implements OnInit {
 
             backgroundColor: this.randomRGB(),
             borderColor: [this.randomRGB()],
-            borderWidth: 1
+            borderWidth: 5
         }
     }
 
@@ -80,7 +87,7 @@ export class StatisticsComponent implements OnInit {
 
     setUpDateLabels() {
         for(let i = 0; i < this.selectedWorkout.statistics.length; i++) {
-            this.statistics.labels.push(this.selectedWorkout.statistics[i].date.day + '/' + this.selectedWorkout.statistics[i].date.month);
+            this.statistics.labels.push(moment(this.selectedWorkout.statistics[i].date).format("DD-MM"));
         }
     }
 
@@ -102,12 +109,25 @@ export class StatisticsComponent implements OnInit {
     }
 
     addWorkoutData() {
+        // loop through stats
         for(let i = 0; i < this.selectedWorkout.statistics.length; i++) {
+
+            // loop through the exercises
             for(let j = 0; j < this.selectedWorkout.statistics[i].exercises.length; j++) {
+
+                // loop through the exercises metrics
                 for(let k = 0; k < this.selectedWorkout.statistics[i].exercises[j].metrics.length; k++) {
+
+                    // get the index of the exercise from the dataset
                     let dataSetIndex = this.findDataSet(this.selectedWorkout.statistics[i].exercises[j].name);
-                    if(dataSetIndex >= 0 && this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].name].active) {
-                        this.statistics.datasets[dataSetIndex].data.push(this.selectedWorkout.statistics[i].exercises[j].metrics[k].value)
+
+                    if(dataSetIndex >= 0 && this.exerciseKeys[this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricName].active) {
+                        let val = this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricValue;
+
+                        if(this.selectedWorkout.statistics[i].exercises[j].metrics[k].metricType === 'time') {
+                            val = ((val.hours * 60) * 60) + (val.minutes * 60) + val.seconds
+                        }
+                        this.statistics.datasets[dataSetIndex].data.push(val);
                     }
                 }
             }

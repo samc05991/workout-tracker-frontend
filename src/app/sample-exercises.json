@@ -1,0 +1,131 @@
+{
+    "sample_exercises": [
+        {           
+            "name": "Stand Up Bike",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Distance",
+                    "metricType": "distance",
+                    "metricValue": 10
+                },
+                {
+                    "metricName": "Time",
+                    "metricType": "time",
+                    "metricValue": {
+                        "hours": 0, 
+                        "minutes": 10, 
+                        "seconds": 30
+                    }
+                }
+            ]
+        },
+        {           
+            "name": "Cycling",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Distance",
+                    "metricType": "distance",
+                    "metricValue": 15
+                },
+                {
+                    "metricName": "Time",
+                    "metricType": "time",
+                    "metricValue": {
+                        "hours": 1, 
+                        "minutes": 10, 
+                        "seconds": 30
+                    }
+                }
+            ]
+        },        {           
+            "name": "Running",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Distance",
+                    "metricType": "distance",
+                    "metricValue": 5
+                },
+                {
+                    "metricName": "Time",
+                    "metricType": "time",
+                    "metricValue": {
+                        "hours": 0, 
+                        "minutes": 20, 
+                        "seconds": 30
+                    }
+                }
+            ]
+        },        {           
+            "name": "Walking",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Distance",
+                    "metricType": "distance",
+                    "metricValue": 10
+                },
+                {
+                    "metricName": "Time",
+                    "metricType": "time",
+                    "metricValue": {
+                        "hours": 1, 
+                        "minutes": 0, 
+                        "seconds": 0
+                    }
+                }
+            ]
+        },        {           
+            "name": "Crosstrainer",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Distance",
+                    "metricType": "distance",
+                    "metricValue": 10
+                },
+                {
+                    "metricName": "Time",
+                    "metricType": "time",
+                    "metricValue": {
+                        "hours": 0, 
+                        "minutes": 28, 
+                        "seconds": 27
+                    }
+                }
+            ]
+        },        {           
+            "name": "Push Ups",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Reps",
+                    "metricType": "number",
+                    "metricValue": 20
+                }
+            ]
+        },        {           
+            "name": "Sit Ups",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Reps",
+                    "metricType": "number",
+                    "metricValue": 20
+                }
+            ]
+        },         {           
+            "name": "Squats",
+            "type": "exercise",
+            "metrics": [
+                {
+                    "metricName": "Reps",
+                    "metricType": "number",
+                    "metricValue": 20
+                }
+            ]
+        }
+    ]
+}

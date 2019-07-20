@@ -4,6 +4,7 @@ export class Exercise {
     public name = '';
     public metrics: any[] = [];
     public created_by?: string;
+    public type: string = 'exercise';
 
     constructor(exercise?: any) {
 
@@ -11,6 +12,12 @@ export class Exercise {
             this.name = exercise.name;
             this.metrics = exercise.metrics;
             this.created_by = exercise.created_by;
+            this.type = exercise.type || 'exercise';
+
+
+            if(exercise._id) {
+                this._id = exercise._id;
+            }
         }
     }
 }

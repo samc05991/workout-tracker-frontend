@@ -6,6 +6,8 @@ import { ExerciseService } from '../../services/exercise.service';
 import { WorkoutService } from '../../services/workout.service';
 import { AuthService } from '../../services/auth.service';
 import { WorkoutOccurrence } from 'src/app/models/workoutOccurrence.model';
+import * as moment from 'moment';
+import * as sampleExercises from '../../sample-exercises.json';
 
 @Component({
     selector: 'app-create-workout',
@@ -15,8 +17,10 @@ import { WorkoutOccurrence } from 'src/app/models/workoutOccurrence.model';
 
 export class CreateWorkoutComponent implements OnInit {
 
-    // the exercises that populate the exercise list
+    // the exercises that populate the custom exercise list
     exercises: Exercise[] = [];
+    // the exercises that populate the public exercise list
+    publicExercises: Exercise[] = [];
 
     // the workout being created/edited
     @Input() workoutToEdit: Workout = undefined;
@@ -40,6 +44,8 @@ export class CreateWorkoutComponent implements OnInit {
     // toggle to open the exercise list
     savedExerciseModal: boolean = false;
 
+    selectedNavItem: string = 'public';
+
     constructor(
         private _workoutService: WorkoutService,
         private _exerciseService: ExerciseService,
@@ -47,8 +53,8 @@ export class CreateWorkoutComponent implements OnInit {
     ) {
         this.workoutOccurrence = new WorkoutOccurrence();
 
-        //initialize and subscribe to the exercise lists
         this.exercises = this._exerciseService.exercises;
+        this.publicExercises = sampleExercises.sample_exercises;
 
         this._exerciseService.exerciseSubject.subscribe(value => {
             this.exercises = this._exerciseService.exercises;
@@ -63,9 +69,11 @@ export class CreateWorkoutComponent implements OnInit {
             this._workoutService.addWorkout(this.workout).subscribe((response) => {});
         }
 
-        // if(this.action === 'edit') {
-        //     this._workoutService.editWorkout(this.workout).subscribe((response) => {});
-        // }
+        if(this.action === 'edit') {
+            this.workout.statistics[this.workout.statistics.length - 1] = Object.assign({}, this.workoutOccurrence);
+
+            this._workoutService.editWorkout(this.workout).subscribe((response) => {});
+        }
 
         if(this.action === 'add-occurrence') {
             this.workout.statistics.push(this.workoutOccurrence);
@@ -74,13 +82,20 @@ export class CreateWorkoutComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(sampleExercises.sample_exercises);
         this.workout = !this.workoutToEdit ? new Workout({statistics: []}) : this.workoutToEdit;
 
         if(this.workout.statistics.length > 0) {
             let length = this.workout.statistics.length;
 
-            this.workoutOccurrence = Object.assign(this.workoutOccurrence, this.workout.statistics[length - 1]);
+            let lastOccurrence = JSON.stringify(Object.assign({}, this.workout.statistics[length - 1]));
+            
+            this.workoutOccurrence = new WorkoutOccurrence(JSON.parse(lastOccurrence));
         }
+    }
+
+    getFriendlyDate(date: string): string {
+        return moment(date).format('dddd, MMMM Do YYYY');
     }
 
     /**
@@ -104,6 +119,8 @@ export class CreateWorkoutComponent implements OnInit {
         newExercise.metrics = exercise.metrics;
 
         this.workoutOccurrence.exercises.push(newExercise);
+
+        this.savedExerciseModal = false;
     }
 
     /**
@@ -120,6 +137,7 @@ export class CreateWorkoutComponent implements OnInit {
         // if we have an index, we are editing
         if($event.index >= 0) {
             this.workoutOccurrence.exercises[$event.index] = newExercise;
+            console.log(this.workoutOccurrence, this.workout.statistics);
         }
         else {
             this.workoutOccurrence.exercises.push(newExercise);
@@ -127,6 +145,10 @@ export class CreateWorkoutComponent implements OnInit {
         }
     }
 
+    /**
+     * When a date is added
+     * @param $event 
+     */
     updateDate($event) {
         this.workoutOccurrence.date = $event.dateMoment.format('YYYYMMDD');
     }
@@ -165,9 +187,20 @@ export class CreateWorkoutComponent implements OnInit {
      * Adds another round of the selected exercises
      */
     addRounds() {
-        for(let key in this.selectedExercises) {
-            this.workoutOccurrence.exercises.push(this.workoutOccurrence.exercises[key])
-        }
+        let exercise = new Exercise({
+            metrics: [{name: "Repeat", type: "number", value: 3}],
+            name: "Repeat"
+        });
+
+        this.workoutOccurrence.exercises.push(exercise);
+
+        // for(let key in this.selectedExercises) {
+        //     let exercise = new Exercise();
+        //     exercise = Object.assign(exercise, this.workoutOccurrence.exercises[key]);
+
+        //     this.workoutOccurrence.exercises.push(new Exercise(this.workoutOccurrence.exercises[key]))
+        //     this.workoutOccurrence.exercises = [...this.workoutOccurrence.exercises];
+        // }
     }
 
     /**
@@ -176,5 +209,11 @@ export class CreateWorkoutComponent implements OnInit {
      */
     removeExerciseFromWorkout(i) {
         this.workoutOccurrence.exercises.splice(i, 1);
+    }
+
+    removeExerciseFromList(exercise) {
+        this.exercises.splice(this.exercises.indexOf(exercise), 0);
+
+        this._exerciseService.deleteExercise(exercise);
     }
 }

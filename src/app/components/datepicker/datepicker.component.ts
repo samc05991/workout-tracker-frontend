@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import * as moment from "moment";
 
 @Component({
@@ -12,12 +12,12 @@ export class DatepickerComponent implements OnInit {
     month: string = "Motnh";
     selectedDate: any = {};
     showCalendar: boolean = false;
-    dateContext: moment.Moment = moment();
 
+    @Input() currentDate = moment();
     @Output() dateAdded = new EventEmitter();
 
     constructor() {
-        this.selectedDate.dateMoment = moment();
+        this.selectedDate.dateMoment = this.currentDate;
      }
 
     ngOnInit() {
@@ -25,17 +25,17 @@ export class DatepickerComponent implements OnInit {
     }
 
     getDaysArrayByMonth() {
-        let daysInMonth = this.dateContext.daysInMonth();
+        let daysInMonth = this.currentDate.daysInMonth();
 
         this.arrDays = [];
 
         for(let i = 1; i <= daysInMonth; i++) {
-            let date = this.dateContext.clone();
+            let date = this.currentDate.clone();
             let current = date.date(i);
 
             let dateObject = {
                 dateMoment: date,
-                selected: i === this.dateContext.date() ? true : false
+                selected: i === this.currentDate.date() ? true : false
             }
 
             this.arrDays.push(dateObject);
@@ -45,7 +45,7 @@ export class DatepickerComponent implements OnInit {
     }
 
     addInactiveDates() {
-        let date = this.dateContext.clone();
+        let date = this.currentDate.clone();
 
         let missingDays = date.startOf('month').day();
 
@@ -55,7 +55,13 @@ export class DatepickerComponent implements OnInit {
     }
 
     addMonth() {
-        this.dateContext.add(1, 'month');
+        this.currentDate.add(1, 'month');
+
+        this.getDaysArrayByMonth();
+    }
+
+    subtractMonth() {
+        this.currentDate.subtract(1, 'month');
 
         this.getDaysArrayByMonth();
     }

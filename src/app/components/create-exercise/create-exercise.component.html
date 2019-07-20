@@ -2,12 +2,12 @@
     <div class="create-exercise-container">
         <div class="sc-input-group modal-header">
             <h3 class="">Create Exercise!
-                <button type="button" class="sc-btn sc-btn--sm sc-btn--danger" aria-label="Close" (click)="closed()">
+                <button type="button" class="sc-btn sc-btn--sm sc-btn--danger" aria-label="Close" (click)="close()">
                     <span aria-hidden="true">Close X</span>
                 </button>
             </h3>
         </div>
-        
+
         <div class="statistic-input-container">
             <div class="exercise-details sc-align--left">
                 <div class="sc-input-group">
@@ -31,9 +31,10 @@
                             <th>Options</th>
                         </tr>
                         <tr *ngFor="let metric of exercise.metrics; index as i">
-                            <td>{{metric.name}}</td>
-                            <td>{{metric.type}}</td> 
-                            <td>{{metric.value}}</td>
+                            <td>{{metric.metricName}}</td>
+                            <td>{{metric.metricType}}</td> 
+                            <td *ngIf="metric.metricType !== 'time'">{{metric.metricValue}}</td>
+                            <td *ngIf="metric.metricType === 'time'">{{metric.metricValue.hours}}:{{metric.metricValue.minutes}}:{{metric.metricValue.seconds}}</td>
                             <td><button class="sc-btn sc-btn--sm sc-btn--secondary" (click)="toggleInputs(i); metricIndex = i">Edit</button></td>
                         </tr>
                     </table>
@@ -45,40 +46,40 @@
                 <div *ngIf="revealInputs" class="pop-up">            
                     <div class="sc-input-group options">
                         <div class="sc-input-label sc-align--right">Key</div>
-                        <input type="text" class="sc-input" [(ngModel)]="metricName" name="key" required>
+                        <input type="text" class="sc-input" [(ngModel)]="newMetric.metricName" name="key" required>
                     </div><br>
-            
+
                     <div class="sc-input-group options">
                         <div class="sc-input-label sc-align--right">Value</div>
-                        <select class="sc-input" [(ngModel)]="metricType">
+                        <select class="sc-input" [(ngModel)]="newMetric.metricType">
                             <option selected>Choose the type of input you need...</option>
                             <option value="number">Number Input</option>
                             <option value="weight">Weight Input</option>
                             <option value="distance">Distance Input</option>
                             <option value="time">Time Input</option>
                         </select><br>
-                       
-                        <div *ngIf="metricType === 'number'" class="sc-input-group">
+
+                        <div *ngIf="newMetric.metricType === 'number'" class="sc-input-group">
                             <div class="sc-input-label sc-align--right">Number</div>
-                            <input type="number" class="sc-input sc-input--xs" id="number" [(ngModel)]="metricValue" name="number" placeholder='0'>
+                            <input type="number" class="sc-input sc-input--xs" id="number" [(ngModel)]="newMetric.metricValue" name="number" placeholder='0'>
                         </div>
-                
-                        <div *ngIf="metricType === 'weight'" class="sc-input-group">
+
+                        <div *ngIf="newMetric.metricType === 'weight'" class="sc-input-group">
                             <div class="sc-input-label sc-align--right">Weight</div>
-                            <input type="number" class="sc-input sc-input--xs" id="weight" [(ngModel)]="metricValue" name="weight">KG
+                            <input type="number" class="sc-input sc-input--xs" id="weight" [(ngModel)]="newMetric.metricValue" name="weight">
                         </div>
-                
-                        <div *ngIf="metricType === 'distance'" class="sc-input-group">
+
+                        <div *ngIf="newMetric.metricType === 'distance'" class="sc-input-group">
                             <div class="sc-input-label sc-align--right">Distance</div>
-                            <input type="number" class="sc-input sc-input--xs" id="distance" [(ngModel)]="metricValue" name="distance">Meters
+                            <input type="number" class="sc-input sc-input--xs" id="distance" [(ngModel)]="newMetric.metricValue" name="distance">
                         </div>
-                
-                        <div *ngIf="metricType === 'time'" class="sc-input-group sc-input-group--date-time">
+
+                        <div *ngIf="newMetric.metricType === 'time'" class="sc-input-group sc-input-group--date-time">
                             <div class="sc-input-group">
                                 <div class="sc-input-label sc-align--right">Time</div>
-                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.hours" placeholder="HH">
-                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.minutes" placeholder="MM">
-                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="metricValue.seconds" placeholder="SS">
+                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="newMetric.metricValue.hours" placeholder="HH">
+                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="newMetric.metricValue.minutes" placeholder="MM">
+                                <input type="number" class="sc-input sc-input--number sc-input--date-day" [(ngModel)]="newMetric.metricValue.seconds" placeholder="SS">
                             </div>
                         </div>
 
@@ -93,7 +94,8 @@
         </div>
 
         <div class="sc-input-group padding-20">
-            <button type="button" class="sc-btn sc-btn--secondary" (click)="saveExercise()">Add to Workout</button>
+            <button type="button" *ngIf="exerciseIndex === undefined" class="sc-btn sc-btn--secondary" (click)="saveExercise()">Add to Workout</button>
+            <button type="button" *ngIf="exerciseIndex >= 0" class="sc-btn sc-btn--secondary" (click)="close()">Update Exercise</button>
         </div>
     </div>          
 </div>

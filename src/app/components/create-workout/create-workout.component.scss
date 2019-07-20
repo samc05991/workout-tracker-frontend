@@ -67,6 +67,19 @@
             grid-template-columns: 100%;
             grid-auto-rows: unset;
         }
+
+        .occurrence-details {
+            background-color: #CCD3D9;
+            padding: 8px;
+            height: 30px;
+
+            span {
+                color: #33363D;
+            }
+            button {
+                float: right;
+            }
+        }
     }
 
     .footer {
@@ -87,17 +100,13 @@
     border-radius: 7px;
     padding: 10px;
     text-align: left;
-    grid-template-columns: 150px auto 222px;
+    grid-template-columns: auto 222px;
     grid-template-rows: auto;
     grid-template-areas:
-        "exercise-item-select details options";
+        "details options";
 
     h4 {
         margin-top: 0px;
-    }
-
-    .exercise-item-select {
-        grid-area: exercise-item-select;
     }
 
     .details {
@@ -108,7 +117,7 @@
         grid-area: options;
     }
 
-    .details, .exercise-item-select {
+    .details {
         padding: 5px;
 
         input {
@@ -123,10 +132,10 @@
     }
 }
 
-.exercise-selected {
-    background-color: #33363D;
-    color: #CCD3D9;
-}
+// .exercise-selected {
+//     background-color: #33363D;
+//     color: #CCD3D9;
+// }
 
 /* When the width is less than 400px*/
 @media screen and (max-width: 500px) {
@@ -172,5 +181,32 @@
         grid-template-areas:
             "exercise-item-select details"
             "exercise-item-select options";
+    }
+}
+
+.exercise-list-nav {
+    margin: 10px;
+    padding: 5px;
+
+    .exercise-list-nav-item {
+        width: 50%;
+        display: inline-block;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+
+        h3 {
+            margin-top: 5px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #CCD3D9;
+            color: #CCD3D9;
+        }
+
+    }
+    .active {
+        h3 {
+            border-bottom: 2px solid #F79728;
+            color: white;
+        }
     }
 }

@@ -1,0 +1,9 @@
+.statistics-container {
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: auto 200px;
+
+    .charts {
+        width: 80%;
+    }
+}

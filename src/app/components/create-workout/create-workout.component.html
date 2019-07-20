@@ -15,7 +15,7 @@
             <div class="sc-input-group sc-input-group--date-time">
                 <div class="sc-input-group">
                     <div class="sc-input-label">Date</div><br>
-                    <app-datepicker (dateAdded)="updateDate($event)"></app-datepicker>
+                    <app-datepicker (dateAdded)="updateDate($event)" (currentDate)="workoutOccurrence.date"></app-datepicker>
                 </div>
             </div>
     
@@ -35,23 +35,25 @@
 
     <div class="editor">
         <div class="sub-nav-header">
-            <h3>Manage your workout</h3>
+            <h3>
+                Manage your workout
+            </h3>
         </div>
         <div class="sc-row" *ngFor="let exercise of workoutOccurrence.exercises; index as i">
             <div class="exercise-item padding-15" [ngClass]="{'exercise-selected': selectedExercises[i] }">
-                <div class="exercise-item-select">
+                <!-- <div class="exercise-item-select">
                     <input class="margin-right-15" type="checkbox" (click)="selectExercise(i)">
-                    <span class="margin-right-15"><strong>{{ exercise.name }}</strong></span>
-                </div>
+                </div> -->
                 <div class="details">
                     <div class="exercise-item-details">                        
+                        <span class="margin-right-15"><strong>{{ exercise.name }} -</strong></span>
                         <span class="margin-right-15" *ngFor="let metric of exercise.metrics">
-                            <span *ngIf="metric.type === 'number'">
-                                <strong>{{metric.name}}</strong> : {{metric.value}}
+                            <span *ngIf="metric.metricType === 'number'">
+                                <strong>{{metric.metricName}}</strong> : {{metric.metricValue}}
                             </span>
-                            <span *ngIf="metric.type === 'time'">
-                                <strong class="margin-right-15">{{metric.name}}</strong>
-                                <span class="margin-right-15" *ngFor="let value of metric.value | keyvalue">
+                            <span *ngIf="metric.metricType === 'time'">
+                                <strong class="margin-right-15">{{metric.metricName}}</strong>
+                                <span class="margin-right-15" *ngFor="let value of metric.metricValue | keyvalue">
                                     {{value.value }}{{value.key}}
                                 </span>
                             </span>
@@ -69,21 +71,20 @@
         <div class="sc-row padding-20 sc-align--center" *ngIf="workoutOccurrence.exercises.length === 0">
             <div>
                 <p>You haven't added any exercises yet! Add exercises in the order you will do them, for example: <br><br>
-                    <strong>Push ups </strong><br>
-                    <strong>Sit ups</strong> <br>
-                    <strong>Squats</strong> <br>
-                    <strong>Push ups</strong> <br>
-                    <strong>Sit ups</strong> <br>
-                    <strong>Squats</strong>
+                    <strong>Push ups </strong> - Reps: 20<br>
+                    <strong>Sit ups</strong> - Reps: 20 <br>
+                    <strong>Squats</strong> - Reps: 20 <br>
+                    <strong>Rest - </strong> 30s <br>
+                    <strong>Repeat - x3</strong> <br>
                 </p>
             </div>
         </div>
         <div class="workout-controls sc-align--center">
             <div class="sc-btn-group margin-bottom-15">
                 <button type="button" class="sc-btn sc-btn--secondary" (click)="savedExerciseModal = true">Exercise List</button>
-                <button type="button" class="sc-btn sc-btn--secondary" (click)="createExerciseModal = true">Add New Exercise</button>
-                <button type="button" class="sc-btn sc-btn--secondary" [disabled]="workoutOccurrence.exercises.length === 0" (click)="addRounds()">Repeat Selected</button>
-                <button type="button" class="sc-btn sc-btn--secondary" (click)="addRestPeriod()">Add Rest Point</button>
+                <button type="button" class="sc-btn sc-btn--secondary" (click)="createExerciseModal = true">New Exercise</button>
+                <button type="button" class="sc-btn sc-btn--secondary" [disabled]="workoutOccurrence.exercises.length === 0" (click)="addRounds()">Add Repeat</button>
+                <button type="button" class="sc-btn sc-btn--secondary" (click)="addRestPeriod()">Add Rest</button>
             </div>
         </div>
     </div>
@@ -93,31 +94,75 @@
     </div>
 
     <div class="modal exercise-list" *ngIf="savedExerciseModal" (click)="savedExerciseModal = false">
-        <div class="modal-container">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+            <div class="exercise-list-nav">
+                <div class="exercise-list-nav-item" [ngClass]="{'active': selectedNavItem === 'custom'}" (click)="selectedNavItem = 'custom'">
+                    <h3>Custom Exercises</h3>
+                </div>
+                <div class="exercise-list-nav-item" [ngClass]="{'active': selectedNavItem === 'public'}" (click)="selectedNavItem = 'public'">
+                    <h3>Public Exercises</h3>
+                </div>
+            </div>
             <div class="sc-row">
                 <p>The are templates of exercises that you have previously used. You can re-use, edit and track statistics for each exercise! Click an exercise to add to your workout</p>
             </div>
-            <div class="sc-row">
+            <div class="sc-row" *ngIf="selectedNavItem === 'custom'">
                 <div class="exercise-item padding-15" *ngFor="let exercise of exercises" (click)="exerciseAddedFromList(exercise)">
-                    <div class="exercise-item-select">
-                        <span class="margin-right-15"><strong>{{ exercise.name }}</strong></span>
-                    </div>
                     <div class="details">
                         <div class="exercise-item-details">                        
+                            <span class="margin-right-15">{{exercise.name}}</span>
                             <span class="margin-right-15" *ngFor="let metric of exercise.metrics">
-                                <span *ngIf="metric.type === 'number'">
-                                    <strong>{{metric.name}}</strong> : {{metric.value}}
+                                <span *ngIf="metric.metricType === 'number'">
+                                    <strong>{{metric.metricName}}</strong> : {{metric.metricValue}}
                                 </span>
-                                <span *ngIf="metric.type === 'time'">
-                                    <strong class="margin-right-15">{{metric.name}}</strong>
-                                    <span class="margin-right-15" *ngFor="let value of metric.value | keyvalue">
+                                <span *ngIf="metric.metricType === 'distance'">
+                                    <strong>{{metric.metricName}}</strong> : {{metric.metricValue}}
+                                </span>
+                                <span *ngIf="metric.metricType === 'time'">
+                                    <strong class="margin-right-15">{{metric.metricName}}</strong>
+                                    <span class="margin-right-15" *ngFor="let value of metric.metricValue | keyvalue">
                                         {{value.value }}{{value.key}}
                                     </span>
                                 </span>
                             </span>
                         </div>
                     </div>
+                    <div class="options">
+                        <div class="sc-btn-group">
+                            <button type="button" class="sc-btn sc-btn--danger sc-btn-sm" (click)="$event.stopPropagation(); removeExerciseFromList(exercise)">Delete</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="sc-row" *ngIf="selectedNavItem === 'public'">
+                <div class="exercise-item padding-15" *ngFor="let exercise of publicExercises" (click)="exerciseAddedFromList(exercise);">
+                    <div class="details">
+                        <div class="exercise-item-details">                        
+                            <span class="margin-right-15">{{exercise.name}}</span>
+                            <span class="margin-right-15" *ngFor="let metric of exercise.metrics">
+                                <span *ngIf="metric.metricType === 'number'">
+                                    <strong>{{metric.metricName}}</strong> : {{metric.metricValue}}
+                                </span>
+                                <span *ngIf="metric.metricType === 'distance'">
+                                    <strong>{{metric.metricName}}</strong> : {{metric.metricValue}}
+                                </span>
+                                <span *ngIf="metric.metricType === 'time'">
+                                    <strong class="margin-right-15">{{metric.metricName}}</strong>
+                                    <span class="margin-right-15" *ngFor="let value of metric.metricValue | keyvalue">
+                                        {{value.value }}{{value.key}}
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="options">
+                        <div class="sc-btn-group">
+                            <button type="button" class="sc-btn sc-btn--danger sc-btn-sm" (click)="$event.stopPropagation(); removeExerciseFromList(exercise)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sc-row">
                 <span class="margin-right-15">
                     <button type="button" (click)="savedExerciseModal = false" class="sc-btn sc-btn--danger sc-btn-block">Close</button>
                 </span>
